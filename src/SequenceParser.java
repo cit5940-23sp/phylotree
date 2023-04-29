@@ -1,6 +1,9 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SequenceParser {
     
@@ -42,6 +45,28 @@ public class SequenceParser {
         ret.setSequence(sequence);
 
         return ret;
+    }
+
+
+    /**
+     * Parse all files in the given folder and return a list of Species objects
+     * @param folderPath is the path of the folder that stores the files to parse
+     * @return ret, a list of Species objects
+     */
+    public List<Species> parseFolder(String folderPath) {
+        File folder = new File(folderPath);
+        
+        // get all the files in the directory
+        File[] files = folder.listFiles();
+
+        List<Species> ret = new ArrayList<>();
+
+        for (File file : files) {
+            ret.add(parseSequence(file.getPath()));
+        }
+
+        return ret;
+
     }
 
 }
