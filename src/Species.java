@@ -35,10 +35,6 @@ public class Species {
         this.sequence = sequence;
     }
 
-    public void setID(int id) {this.id = id; }
-    
-        public void setID(int id) {this.id = id; }
-=======
     @Override
     public boolean equals(Object o) {
         if (o == this) {
@@ -59,6 +55,4 @@ public class Species {
 
         return false;
     }
-
-
 }

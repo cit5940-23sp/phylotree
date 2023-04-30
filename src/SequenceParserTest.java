@@ -1500,5 +1500,6 @@ class SequenceParserTest {
         assertTrue(actual.contains(species1));
         assertTrue(actual.contains(species2));
         assertTrue(actual.contains(species3));
+
     }
 }
