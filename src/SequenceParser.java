@@ -58,13 +58,13 @@ public class SequenceParser {
      * @param folderPath is the path of the folder that stores the files to parse
      * @return ret, a list of Species objects
      */
-    public Set<Species> parseFolder(String folderPath) {
+    public List<Species>  parseFolder(String folderPath) {
         File folder = new File(folderPath);
         
         // get all the files in the directory
         File[] files = folder.listFiles();
 
-        Set<Species> ret = new HashSet<>();
+        List<Species> ret = new ArrayList<>();
 
         int id = 0;
 

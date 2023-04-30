@@ -414,7 +414,7 @@ class SequenceParserTest {
     @org.junit.jupiter.api.Test
     void parseFolder() {
         SequenceParser sp = new SequenceParser();
-        Set<Species> actualTemp = sp.parseFolder(folderPath);
+        List<Species> actualTemp = sp.parseFolder(folderPath);
 
         Set<Species> actual = new TreeSet<>(new SequenceComparator());
         actual.addAll(actualTemp);
