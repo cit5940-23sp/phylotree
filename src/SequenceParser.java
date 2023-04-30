@@ -27,9 +27,11 @@ public class SequenceParser {
             // read the first line and store it in header
             header = bufferedReader.readLine();
 
+            //split the header on commas
             String headerTokens[] = header.split("\s+");
-            String genusName = headerTokens[1];
-            String specificEpithet = headerTokens[2];
+            String genusName = headerTokens[1].trim();
+
+            String specificEpithet = headerTokens[2].trim();
             
             ret.setGenusName(genusName);
             ret.setSpecificEpithet(specificEpithet);
@@ -57,7 +59,8 @@ public class SequenceParser {
      * @param folderPath is the path of the folder that stores the files to parse
      * @return ret, a list of Species objects
      */
-    public List<Species> parseFolder(String folderPath) {
+    public List<Species>  parseFolder(String folderPath) {
+
         File folder = new File(folderPath);
         
         // get all the files in the directory
@@ -65,13 +68,18 @@ public class SequenceParser {
 
         List<Species> ret = new ArrayList<>();
 
+        int id = 0;
+
+
         for (File file : files) {
-            ret.add(parseSequence(file.getPath()));
+            Species s = parseSequence(file.getPath());
+            s.setID(id);
+            ret.add(s);
+            id++;
         }
 
         return ret;
     }
-
 }
   
   

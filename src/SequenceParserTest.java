@@ -37,7 +37,11 @@ class SequenceParserTest {
     @org.junit.jupiter.api.Test
     void parseFolder() {
         SequenceParser sp = new SequenceParser();
-        List<Species> actual = sp.parseFolder(folderPath);
+        List<Species> actualTemp = sp.parseFolder(folderPath);
+
+        Set<Species> actual = new TreeSet<>(new SequenceComparator());
+        actual.addAll(actualTemp);
+
 
         Species species1 = new Species();
         species1.setGenusName("Accipiter");
@@ -68,17 +72,10 @@ class SequenceParserTest {
         map.put("Alligator", species3);
 
 
-
-
-//        for (int i = 0; i < actual.size(); i++) {
-//            assertEquals(expected.get(i).getGenusName(), actual.get(i).getGenusName());
-//            assertEquals(expected.get(i).getSpecificEpithet(), actual.get(i).getSpecificEpithet());
-//            assertEquals(expected.get(i).getSequence(), actual.get(i).getSequence());
-//        }
-
-
-
-
+        //check if the species set contains the species
+        assertTrue(actual.contains(species1));
+        assertTrue(actual.contains(species2));
+        assertTrue(actual.contains(species3));
 
     }
 }
