@@ -29,6 +29,29 @@ public class Species {
         this.sequence = sequence;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof Species)) {
+            return false;
+        }
+
+        Species other = (Species) o;
+
+        if (this.getGenusName().equals(other.getGenusName()) &&
+                this.getSpecificEpithet().equals(other.getSpecificEpithet()) &&
+                this.getSequence().equals(other.getSequence())) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+
 
 
 }

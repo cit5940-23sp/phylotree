@@ -1493,6 +1493,8 @@ class SequenceParserTest {
         expected.add(species2);
         expected.add(species3);
 
+
+
 //        for (int i = 0; i < actual.size(); i++) {
 //            assertEquals(expected.get(i).getGenusName(), actual.get(i).getGenusName());
 //            assertEquals(expected.get(i).getSpecificEpithet(), actual.get(i).getSpecificEpithet());
