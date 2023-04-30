@@ -46,6 +46,8 @@ public class Species {
                 this.getSequence().equals(other.getSequence())) {
             return true;
         }
+
+        return false;
     }
 
 
