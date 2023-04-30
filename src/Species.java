@@ -4,6 +4,8 @@ public class Species {
         String genusName;
         String specificEpithet;
         String sequence;
+
+        int id;
     
     public String getGenusName() {
         return this.genusName;
@@ -15,6 +17,10 @@ public class Species {
 
     public String getSequence() {
         return this.sequence;
+    }
+
+    public int getID() {
+        return this.id;
     }
 
     public void setGenusName(String genusName) {
@@ -29,6 +35,6 @@ public class Species {
         this.sequence = sequence;
     }
 
-
+    public void setID(int id) {this.id = id; }
 
 }
