@@ -414,7 +414,7 @@ class SequenceParserTest {
     @org.junit.jupiter.api.Test
     void parseFolder() {
         SequenceParser sp = new SequenceParser();
-        Set<Species> actual = sp.parseFolder(folderPath);
+        List<Species> actual = sp.parseFolder(folderPath);
 
         Species species1 = new Species();
         species1.setGenusName("Accipiter");

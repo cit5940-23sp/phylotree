@@ -9,6 +9,10 @@ public class EditDistance {
         this.specList = inSpecList;
     }
     
+    /**
+     * Create a matrix of edit distances where indices correspond to ID numbers
+     * @return a 2D ArrayList of edit distances
+     */
     public ArrayList<ArrayList<Integer>> editDistMatrix() {
         ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
         
@@ -28,6 +32,11 @@ public class EditDistance {
         return matrix;
     }
     
+    /**
+     * Calculate edit distances between two species
+     * @param input species whose sequences will be compared
+     * @return edit distance
+     */
     public int editDist(Species spec1, Species spec2) {
         // Get both sequences
         String seq1 = spec1.getSequence();
@@ -50,7 +59,7 @@ public class EditDistance {
                     dpArray[i][j] = i;
                 }
                 // Case 3: last char matches and isn't N
-                else if (seq1.charAt(i - 1) == seq2.charAt(j - 1) && seq1.charAt(i) != 'N') {
+                else if (seq1.charAt(i - 1) == seq2.charAt(j - 1) && seq1.charAt(i - 1) != 'N') {
                     dpArray[i][j] = dpArray[i - 1][j - 1];
                 }
                 // Case 4: last char doesn't match
