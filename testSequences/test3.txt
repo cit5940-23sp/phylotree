@@ -1,0 +1,2 @@
+>NW_0000.0:c0000-0000 Test3 test3 test isolate 
+AAAGGGGGGG
