@@ -34,6 +34,10 @@ public class Species {
     public void setSequence(String sequence) {
         this.sequence = sequence;
     }
+    
+    public void setID(int id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {
