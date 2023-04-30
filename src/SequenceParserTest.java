@@ -414,7 +414,10 @@ class SequenceParserTest {
     @org.junit.jupiter.api.Test
     void parseFolder() {
         SequenceParser sp = new SequenceParser();
-        Set<Species> actual = sp.parseFolder(folderPath);
+        List<Species> actualTemp = sp.parseFolder(folderPath);
+
+        Set<Species> actual = new TreeSet<>(new SequenceComparator());
+        actual.addAll(actualTemp);
 
         Species species1 = new Species();
         species1.setGenusName("Accipiter");
@@ -1492,7 +1495,7 @@ class SequenceParserTest {
         expected.add(species1);
         expected.add(species2);
         expected.add(species3);
-        
+
         //check if the species set contains the species
         assertTrue(actual.contains(species1));
         assertTrue(actual.contains(species2));
