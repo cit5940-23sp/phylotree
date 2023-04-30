@@ -1492,18 +1492,11 @@ class SequenceParserTest {
         expected.add(species1);
         expected.add(species2);
         expected.add(species3);
-
-
-
-//        for (int i = 0; i < actual.size(); i++) {
-//            assertEquals(expected.get(i).getGenusName(), actual.get(i).getGenusName());
-//            assertEquals(expected.get(i).getSpecificEpithet(), actual.get(i).getSpecificEpithet());
-//            assertEquals(expected.get(i).getSequence(), actual.get(i).getSequence());
-//        }
-
-
-
-
+        
+        //check if the species set contains the species
+        assertTrue(actual.contains(species1));
+        assertTrue(actual.contains(species2));
+        assertTrue(actual.contains(species3));
 
     }
 }
