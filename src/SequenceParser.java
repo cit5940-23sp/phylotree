@@ -26,9 +26,11 @@ public class SequenceParser {
             // read the first line and store it in header
             header = bufferedReader.readLine();
 
+            //split the header on commas
             String headerTokens[] = header.split("\s+");
-            String genusName = headerTokens[1];
-            String specificEpithet = headerTokens[2];
+            String genusName = headerTokens[1].trim();
+
+            String specificEpithet = headerTokens[2].trim();
             
             ret.setGenusName(genusName);
             ret.setSpecificEpithet(specificEpithet);
@@ -64,14 +66,17 @@ public class SequenceParser {
 
         Set<Species> ret = new HashSet<>();
 
+        int id = 0;
+
         for (File file : files) {
-            ret.add(parseSequence(file.getPath()));
+            Species s = parseSequence(file.getPath());
+            s.setID(id);
+            ret.add(s);
+            id++;
         }
 
         return ret;
-
     }
-
 }
   
   
