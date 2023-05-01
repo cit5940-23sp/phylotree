@@ -1,0 +1,2 @@
+>NC_0.0:0-0 Test1 test1 isolate
+AAAAAAAAAA

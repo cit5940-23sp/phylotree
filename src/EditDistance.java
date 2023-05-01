@@ -13,10 +13,10 @@ public class EditDistance {
     
     /**
      * Create a matrix of edit distances where indices correspond to ID numbers
-     * @return a 2D ArrayList of edit distances
+     * @return a 2D array
      */
-    public ArrayList<ArrayList<Integer>> editDistMatrix() {
-        ArrayList<ArrayList<Integer>> matrix = new ArrayList<ArrayList<Integer>>();
+    public int[][] editDistMatrix() {
+        int[][] matrix = new int[specList.size()][specList.size()];
         
         // Iterate through every pair of species
         for (Species spec1 : specList) {
@@ -26,8 +26,8 @@ public class EditDistance {
                 int dist = editDist(spec1, spec2);
                 
                 // Add both "edges"
-                //matrix.get(spec1.getID()).add(spec2.id, dist);
-                //matrix.get(spec2.getID()).add(spec1.id, dist);
+                matrix[spec1.getID()][spec2.getID()] = dist;
+                matrix[spec2.getID()][spec1.getID()] = dist;
             }
         }
         
