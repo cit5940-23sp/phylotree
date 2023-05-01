@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -59,6 +60,7 @@ public class SequenceParser {
      * @return ret, a list of Species objects
      */
     public List<Species>  parseFolder(String folderPath) {
+
         File folder = new File(folderPath);
         
         // get all the files in the directory
@@ -67,6 +69,7 @@ public class SequenceParser {
         List<Species> ret = new ArrayList<>();
 
         int id = 0;
+
 
         for (File file : files) {
             Species s = parseSequence(file.getPath());
