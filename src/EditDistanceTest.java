@@ -12,7 +12,7 @@ public class EditDistanceTest {
     }
 
     @Test
-    public void editDistanceFullyDifferentTest() {
+    public void editDistFullyDifferentTest() {
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("basicTestSequences");
         EditDistance ed = new EditDistance(testList);
@@ -20,7 +20,7 @@ public class EditDistanceTest {
     }
     
     @Test
-    public void editDistanceSameSeqTest() {
+    public void editDistSameSeqTest() {
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("basicTestSequences");
         EditDistance ed = new EditDistance(testList);
@@ -28,11 +28,19 @@ public class EditDistanceTest {
     }
     
     @Test
-    public void editDistancePartiallyDifferentTest() {
+    public void editDistPartiallyDifferentTest() {
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("basicTestSequences");
         EditDistance ed = new EditDistance(testList);
         assertEquals(7, ed.editDist(testList.get(0), testList.get(2)));
+    }
+    
+    @Test
+    public void editDistMatrixTest() {
+        SequenceParser sp = new SequenceParser();
+        List<Species> testList = sp.parseFolder("basicTestSequences");
+        EditDistance ed = new EditDistance(testList);
+        // Finish after species ID is added
     }
 
 }
