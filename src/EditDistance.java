@@ -1,7 +1,6 @@
 package src;
 
 import java.util.List;
-import java.util.ArrayList;
 
 public class EditDistance {
     
@@ -16,6 +15,7 @@ public class EditDistance {
      * @return a 2D array
      */
     public int[][] editDistMatrix() {
+        // Initialize 2D array
         int[][] matrix = new int[specList.size()][specList.size()];
         
         // Iterate through every pair of species
