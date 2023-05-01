@@ -1,5 +1,3 @@
-package src;
-
 import java.util.Comparator;
 
 public class SequenceComparator implements Comparator<Species> {
