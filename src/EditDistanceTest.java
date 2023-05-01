@@ -1,11 +1,11 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class EditDistanceTest {
+class EditDistanceTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
