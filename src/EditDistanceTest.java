@@ -1,20 +1,17 @@
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import org.junit.BeforeClass;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EditDistanceTest {
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
+    static final String TEST_FOLDER = "test/basic";
 
     @Test
     public void editDistFullyDifferentTest() {
         SequenceParser sp = new SequenceParser();
-        List<Species> testList = sp.parseFolder("basicTestSequences");
+        List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         assertEquals(10, ed.editDist(testList.get(0), testList.get(1)));
     }
@@ -22,7 +19,7 @@ class EditDistanceTest {
     @Test
     public void editDistSameSeqTest() {
         SequenceParser sp = new SequenceParser();
-        List<Species> testList = sp.parseFolder("basicTestSequences");
+        List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         assertEquals(0, ed.editDist(testList.get(0), testList.get(0)));
     }
@@ -30,7 +27,7 @@ class EditDistanceTest {
     @Test
     public void editDistPartiallyDifferentTest() {
         SequenceParser sp = new SequenceParser();
-        List<Species> testList = sp.parseFolder("basicTestSequences");
+        List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         assertEquals(7, ed.editDist(testList.get(0), testList.get(2)));
     }
@@ -38,7 +35,7 @@ class EditDistanceTest {
     @Test
     public void editDistMatrixTest() {
         SequenceParser sp = new SequenceParser();
-        List<Species> testList = sp.parseFolder("basicTestSequences");
+        List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         int[][] matrix = ed.editDistMatrix();
         assertEquals(0, matrix[0][0]);

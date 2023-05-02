@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 class SequenceParserTest {
-    String folderPath = "testSequences";
+    String folderPath = "test/complex";
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
 
@@ -10,12 +10,13 @@ class SequenceParserTest {
 
     @org.junit.jupiter.api.AfterEach
     void tearDown() {
+
     }
 
     @org.junit.jupiter.api.Test
     void parseSequence() {
         SequenceParser sp = new SequenceParser();
-        Species actual = sp.parseSequence("testSequences/accipiter_gentilis.txt");
+        Species actual = sp.parseSequence(folderPath + "/accipiter_gentilis.txt");
 
         Species expected = new Species();
         expected.setGenusName("Accipiter");
@@ -30,8 +31,6 @@ class SequenceParserTest {
         assertEquals(expected.getGenusName(), actual.getGenusName());
         assertEquals(expected.getSpecificEpithet(), actual.getSpecificEpithet());
         assertEquals(expected.getSequence(), actual.getSequence());
-
-
     }
 
     @org.junit.jupiter.api.Test
@@ -76,6 +75,5 @@ class SequenceParserTest {
         assertTrue(actual.contains(species1));
         assertTrue(actual.contains(species2));
         assertTrue(actual.contains(species3));
-
     }
 }
