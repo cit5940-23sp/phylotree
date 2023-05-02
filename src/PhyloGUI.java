@@ -1,6 +1,7 @@
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
+import org.graphstream.ui.view.Viewer;
 
 public class PhyloGUI {
 
@@ -11,13 +12,17 @@ public class PhyloGUI {
         graph.addNode("C" );
         graph.addNode("D" );
         graph.addNode("E" );
+        graph.addNode("S");
+        graph.addNode("X");
+        graph.addEdge("BS", "B", "S");
+        graph.addEdge("BX", "B", "X");
         graph.addEdge("AB", "A", "B");
         graph.addEdge("AC", "A", "C");
         graph.addEdge("CD", "C", "D");
         graph.addEdge("CE", "C", "E");
         System.setProperty("org.graphstream.ui", "swing");
 
-        String verts = "ABCDE";
+        String verts = "DESX";
         for (char i : verts.toCharArray()) {
             String vertid = String.valueOf(i);
             Node n = graph.getNode(vertid);
@@ -30,7 +35,7 @@ public class PhyloGUI {
             n.edges().forEach(System.out::println);
         }
 
-        graph.display();
+        Viewer view = graph.display();
     }
 }
 
