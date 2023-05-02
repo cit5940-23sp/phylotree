@@ -28,7 +28,7 @@ public class SequenceParser {
             header = bufferedReader.readLine();
 
             //split the header on commas
-            String headerTokens[] = header.split("\s+");
+            String headerTokens[] = header.split("\\s+");
             String genusName = headerTokens[1].trim();
 
             String specificEpithet = headerTokens[2].trim();
