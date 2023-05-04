@@ -1,2 +1,2 @@
->NC_0.0:0-0 Test1 test1 isolate
+>NC_0.0:0-0 Test3 test3 isolate
 AAAGGGGGGG
