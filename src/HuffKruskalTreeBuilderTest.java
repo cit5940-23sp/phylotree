@@ -4,15 +4,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HuffKruskalTreeBuilderTest {
 
-    static final String TEST_FOLDER = "test/basic";
-
     @Test
-    void testBuildTree() {
+    void testBuildTreeBasic() {
         HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder();
-        hktb.setUp(TEST_FOLDER);
+        hktb.setUp("test/basic");
         hktb.buildTree();
         Node mainRoot = hktb.getMainRoot();
-        System.out.println(mainRoot.getLeftChild().getLeftChild().getSpec().toString());
+        assertEquals("Test1 test1", mainRoot.getLeftChild().getLeftChild().getSpecName());
+    }
+    
+    @Test
+    void testBuildTreeComplex() {
+        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder();
+        hktb.setUp("test/complex");
+        hktb.buildTree();
+        Node mainRoot = hktb.getMainRoot();
+        assertEquals("Accipiter gentilis", mainRoot.getLeftChild().getSpecName());
     }
 
 }

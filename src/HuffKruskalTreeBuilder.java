@@ -64,7 +64,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         ArrayList<Node> nodeList = new ArrayList<Node>();
         
         for (int i = 0; i < specList.size(); i++) {
-            Node newNode = new Node(specList.get(i));
+            Node newNode = new Node(specList.get(i).toString());
             nodeList.add(newNode);
         }
         

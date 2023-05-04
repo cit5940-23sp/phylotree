@@ -1,38 +1,38 @@
 
 public class Node {
     
-    private Species spec;
+    private String specName;
     private Node parent;
     private Node leftChild;
     private Node rightChild;
     
-    public Node(Species spec, Node parent, Node leftChild, Node rightChild) {
-        this.setSpec(spec);
+    public Node(String specName, Node parent, Node leftChild, Node rightChild) {
+        this.setSpecName(specName);
         this.setParent(parent);
         this.setLeftChild(leftChild);
         this.setRightChild(rightChild);
     }
     
-    public Node(Species spec) {
-        this.setSpec(spec);
+    public Node(String specName) {
+        this.setSpecName(specName);
         this.setParent(null);
         this.setLeftChild(null);
         this.setRightChild(null);
     }
     
     public Node(Node leftChild, Node rightChild) {
-        this.setSpec(null);
+        this.setSpecName(null);
         this.setParent(null);
         this.setLeftChild(leftChild);
         this.setRightChild(rightChild);
     }
 
-    public Species getSpec() {
-        return spec;
+    public String getSpecName() {
+        return specName;
     }
 
-    public void setSpec(Species spec) {
-        this.spec = spec;
+    public void setSpecName(String specName) {
+        this.specName = specName;
     }
 
     public Node getParent() {
