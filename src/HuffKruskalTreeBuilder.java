@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -38,14 +39,26 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     // Helper
     private Queue<Edge> getEdgeQueue() {
         Queue<Edge> pq = new PriorityQueue<Edge>();
+        List<Node> nodeList = getNodeList();
         
         for (int i = 0; i < specList.size(); i++) {
             for (int j = i; j < specList.size(); j++) {
-                Edge newEdge = new Edge (specList.get(i), specList.get(j), matrix[i][j]);
+                Edge newEdge = new Edge (nodeList.get(i), nodeList.get(j), matrix[i][j]);
                 pq.add(newEdge);
             }
         }
         
         return pq;
+    }
+    
+    private List<Node> getNodeList() {
+        ArrayList<Node> nodeList = new ArrayList<Node>();
+        
+        for (int i = 0; i < specList.size(); i++) {
+            Node newNode = new Node(specList.get(i));
+            nodeList.add(newNode);
+        }
+        
+        return nodeList;
     }
 }
