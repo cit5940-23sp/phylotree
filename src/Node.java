@@ -19,6 +19,13 @@ public class Node {
         this.setLeftChild(null);
         this.setRightChild(null);
     }
+    
+    public Node(Node leftChild, Node rightChild) {
+        this.setSpec(null);
+        this.setParent(null);
+        this.setLeftChild(leftChild);
+        this.setRightChild(rightChild);
+    }
 
     public Species getSpec() {
         return spec;

@@ -7,6 +7,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     
     private List<Species> specList;
     private int[][] matrix;
+    private Node mainRoot;
     
     public void setUp(String folderPath) {
         SequenceParser sp = new SequenceParser();
@@ -31,6 +32,13 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         
         while (!frontierQ.isEmpty()) {
             Edge nextMin = frontierQ.poll();
+            Node root1 = findRoot(nextMin.getSpec1());
+            Node root2 = findRoot(nextMin.getSpec2());
+            if (root1 != root2) {
+                mainRoot = new Node(root1, root2);
+                root1.setParent(mainRoot);
+                root2.setParent(mainRoot);
+            }
         }
         
         return null;
@@ -51,6 +59,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         return pq;
     }
     
+    // Helper
     private List<Node> getNodeList() {
         ArrayList<Node> nodeList = new ArrayList<Node>();
         
@@ -60,5 +69,18 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         }
         
         return nodeList;
+    }
+    
+    // Helper
+    private Node findRoot(Node node) {
+        if (node.getParent() == null) {
+            return node;
+        }
+        return findRoot(node.getParent());
+    }
+    
+    // For testing
+    public Node getMainRoot() {
+        return this.mainRoot;
     }
 }
