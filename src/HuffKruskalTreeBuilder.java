@@ -25,8 +25,6 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         // Use Huffman based approach to take two species and put them under on internal node
         
         // Take smallest unseen edge and add the two species it connect under a parent internal node
-        // Update all edge weights for those two species to be the average distance for both?
-        // Or just always use min?
         
         Queue<Edge> frontierQ = getEdgeQueue();
         
