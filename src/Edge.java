@@ -36,12 +36,12 @@ public class Edge implements Comparable<Edge>{
     }
 
     public int compare(Edge e) {
-        return -(this.getDist() - e.dist);
+        return this.getDist() - e.dist;
     }
 
     @Override
     public int compareTo(Edge e) {
-        return -(this.getDist() - e.dist);
+        return this.getDist() - e.dist;
     }
 
 }

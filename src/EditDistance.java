@@ -16,7 +16,7 @@ public class EditDistance {
         // Initialize 2D array
         int[][] matrix = new int[specList.size()][specList.size()];
         
-        int k = 1;
+        //int k = 1;
         
         // Iterate through every pair of species
         for (Species spec1 : specList) {
@@ -29,9 +29,9 @@ public class EditDistance {
                 matrix[spec1.getID()][spec2.getID()] = dist;
                 matrix[spec2.getID()][spec1.getID()] = dist;
                 
-                System.out.println("Finished: " + k);
-                System.out.println("Species 1: " + spec1.toString() + ", Species 2: " + spec2.toString());
-                k++;
+                //System.out.println("Finished: " + k);
+                //System.out.println("Species 1: " + spec1.toString() + ", Species 2: " + spec2.toString());
+                //k++;
             }
         }
         

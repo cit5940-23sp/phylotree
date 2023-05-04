@@ -21,5 +21,15 @@ class HuffKruskalTreeBuilderTest {
         Node mainRoot = hktb.getMainRoot();
         assertEquals("Accipiter gentilis", mainRoot.getLeftChild().getSpecName());
     }
+    
+    @Test
+    void testPrintOut() {
+        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder();
+        hktb.setUp("test/complex2");
+        hktb.buildTree();
+        Node mainRoot = hktb.getMainRoot();
+        String str = "";
+        hktb.printOut(mainRoot, str);
+    }
 
 }

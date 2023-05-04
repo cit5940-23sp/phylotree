@@ -81,4 +81,18 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     public Node getMainRoot() {
         return this.mainRoot;
     }
+    
+    // For testing
+    public Node printOut(Node node, String str) {
+        if (node == null) {
+            return null;
+        }
+        if (node.getSpecName() != null) {
+            System.out.println(str + node.getSpecName());
+        }
+        str += "-";
+        printOut(node.getLeftChild(), str);
+        printOut(node.getRightChild(), str);
+        return null;
+    }
 }
