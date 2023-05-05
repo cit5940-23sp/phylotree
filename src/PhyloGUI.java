@@ -2,11 +2,11 @@ import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.swing_viewer.SwingViewer;
-import org.graphstream.ui.swing_viewer.util.DefaultCamera;
 import org.graphstream.ui.view.View;
-import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -127,8 +127,14 @@ public class PhyloGUI implements ActionListener {
         graphViewer.enableAutoLayout();
         View view = graphViewer.addDefaultView(false);
 
-        // Add the Viewer to the frame
-        frame.getContentPane().add((Component) view, gbcViewer);
+        // Create a JPanel to hold the Viewer component
+        JPanel viewerPanel = new JPanel(new BorderLayout());
+        viewerPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+        //viewerPanel.setBorder(BorderFactory.createTitledBorder("Tree View"));
+        viewerPanel.add((Component) view, BorderLayout.CENTER);
+
+        // Add the Viewer JPanel to the frame
+        frame.getContentPane().add(viewerPanel, gbcViewer);
 
         // Display the window.
         frame.setVisible(true);
