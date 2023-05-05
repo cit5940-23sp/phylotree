@@ -6,7 +6,6 @@ import org.graphstream.ui.view.View;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -51,7 +50,6 @@ public class PhyloGUI implements ActionListener {
     }
 
     private void createAndShowGUI() {
-
         JFrame frame = new JFrame("PhyloTree Viewer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 600);
@@ -90,7 +88,6 @@ public class PhyloGUI implements ActionListener {
         frame.add(panel);
         frame.add(panel2);
         frame.setLocationRelativeTo(null);
-
         frame.getContentPane().setLayout(new GridBagLayout());
 
         // Create GridBagConstraints
@@ -154,7 +151,7 @@ public class PhyloGUI implements ActionListener {
         graph.addEdge("AC", "A", "C");
         graph.addEdge("CD", "C", "D");
         graph.addEdge("CE", "C", "E");
-        System.setProperty("org.graphstream.ui", "swing");
+
 
         String verts = "DESX";
         for (char i : verts.toCharArray()) {
@@ -171,6 +168,7 @@ public class PhyloGUI implements ActionListener {
     }
 
     public static void main(String[] args) {
+        System.setProperty("org.graphstream.ui", "swing");
         Graph graph = new SingleGraph("Tutorial 1");
         //testGraph(graph);
         PhyloGUI gui = new PhyloGUI(graph);
@@ -186,11 +184,19 @@ public class PhyloGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
             System.out.println("krus");
+            graph.clear();
             testGraph(graph);
-            //graph.removeEdge("AC");
         } else if (e.getSource() == this.buttonTb) {
             System.out.println("textbook");
             this.graph.clear();
+            graph.setStrict(false);
+            graph.setAutoCreate( true );
+            graph.addEdge( "AB", "A", "B" );
+            graph.addEdge( "BC", "A", "C" );
+            graph.addEdge("AE", "A", "E");
+            graph.addEdge("ES", "E", "S");
+            graph.setStrict(true);
+            graph.setAutoCreate( false );
         } else if (e.getSource() == this.buttonTrie) {
             System.out.println("trie");
         } else if (e.getSource() == this.buttonDNA) {
