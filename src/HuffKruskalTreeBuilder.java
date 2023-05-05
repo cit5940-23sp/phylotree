@@ -23,7 +23,6 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     public Graph buildTree() {
         // Use Kruskal based approach to sort edges and always pick lowest
         // Use Huffman based approach to take two species and put them under on internal node
-        
         // Take smallest unseen edge and add the two species it connect under a parent internal node
         
         Queue<Edge> frontierQ = getEdgeQueue();
