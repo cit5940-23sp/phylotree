@@ -1,6 +1,9 @@
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
+import org.graphstream.ui.swing_viewer.SwingViewer;
+import org.graphstream.ui.swing_viewer.util.DefaultCamera;
+import org.graphstream.ui.view.View;
 import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
@@ -9,7 +12,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 public class PhyloGUI implements ActionListener {
+
+    SwingViewer graphViewer;
+    Graph graph;
 
     JButton buttonHuffKruskal;
     JButton buttonTb;
@@ -17,6 +24,10 @@ public class PhyloGUI implements ActionListener {
     JButton buttonDNA;
     JButton buttonSpecies;
 
+    PhyloGUI(Graph graph) {
+        this.graph = graph;
+        graphViewer = new SwingViewer(graph, SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);;
+    }
 
     private JMenuBar createMenuBar() {
         // Create a menu bar
@@ -36,7 +47,6 @@ public class PhyloGUI implements ActionListener {
         // Add menus to the menu bar
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
-
         return menuBar;
     }
 
@@ -84,18 +94,43 @@ public class PhyloGUI implements ActionListener {
         frame.getContentPane().setLayout(new GridBagLayout());
 
         // Create GridBagConstraints
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weighty = 1;
-        gbc.weightx = 1;
+        GridBagConstraints gbcPanel = new GridBagConstraints();
+        gbcPanel.anchor = GridBagConstraints.SOUTH;
+        gbcPanel.fill = GridBagConstraints.HORIZONTAL;
+        gbcPanel.weighty = 0;
+        gbcPanel.weightx = 1;
+        gbcPanel.gridx = 0;
+        gbcPanel.gridy = 1;
 
-        // Add the panels to the frame with GridBagConstraints
-        frame.getContentPane().add(panel, gbc);
-        frame.getContentPane().add(panel2, gbc);
+        GridBagConstraints gbcPanel2 = new GridBagConstraints();
+        gbcPanel2.anchor = GridBagConstraints.SOUTH;
+        gbcPanel2.fill = GridBagConstraints.HORIZONTAL;
+        gbcPanel2.weighty = 0;
+        gbcPanel2.weightx = 1;
+        gbcPanel2.gridx = 1;
+        gbcPanel2.gridy = 1;
+
+        GridBagConstraints gbcViewer = new GridBagConstraints();
+        gbcViewer.anchor = GridBagConstraints.NORTH;
+        gbcViewer.fill = GridBagConstraints.BOTH;
+        gbcViewer.weighty = 1;
+        gbcViewer.weightx = 1;
+        gbcViewer.gridx = 0;
+        gbcViewer.gridy = 0;
+        gbcViewer.gridwidth = 2; // Span two columns
+
+        // Add the panels and the Viewer to the frame with GridBagConstraints
+        frame.getContentPane().add(panel, gbcPanel);
+        frame.getContentPane().add(panel2, gbcPanel2);
+
+        // Create and configure the SwingViewer
+        graphViewer.enableAutoLayout();
+        View view = graphViewer.addDefaultView(false);
+
+        // Add the Viewer to the frame
+        frame.getContentPane().add((Component) view, gbcViewer);
 
         // Display the window.
-        // frame.pack();
         frame.setVisible(true);
     }
 
@@ -128,7 +163,7 @@ public class PhyloGUI implements ActionListener {
             n.edges().forEach(System.out::println);
         }
 
-        PhyloGUI gui = new PhyloGUI();
+        PhyloGUI gui = new PhyloGUI(graph);
         //Viewer view = graph.display();
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
