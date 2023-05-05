@@ -13,5 +13,5 @@ public interface ITreeBuilder {
      * @param matrix
      * @return
      */
-    public Graph buildTree();
+    public Node buildTree();
 }

@@ -9,6 +9,19 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     private int[][] matrix;
     private Node mainRoot;
     
+    public HuffKruskalTreeBuilder() {
+        
+    }
+    
+    public HuffKruskalTreeBuilder(String folderPath) {
+        setUp(folderPath);
+    }
+    
+    public HuffKruskalTreeBuilder(List<Species> specList, int[][] matrix) {
+        this.specList = specList;
+        this.matrix = matrix;
+    }
+    
     public void setUp(String folderPath) {
         SequenceParser sp = new SequenceParser();
         
@@ -20,7 +33,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     }
 
     @Override
-    public Graph buildTree() {
+    public Node buildTree() {
         // Use Kruskal based approach to sort edges and always pick lowest
         // Use Huffman based approach to take two species and put them under on internal node
         // Take smallest unseen edge and add the two species it connect under a parent internal node
@@ -38,7 +51,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
             }
         }
         
-        return null;
+        return mainRoot;
     }
     
     // Helper
