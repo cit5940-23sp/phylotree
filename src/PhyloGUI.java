@@ -170,7 +170,6 @@ public class PhyloGUI implements ActionListener {
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
         Graph graph = new SingleGraph("Tutorial 1");
-        //testGraph(graph);
         PhyloGUI gui = new PhyloGUI(graph);
         javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
     }

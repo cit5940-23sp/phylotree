@@ -13,6 +13,7 @@ import org.graphstream.graph.Graph;
  */
 public class PhyloTree {
     Node root;
+    Graph graphstream;
 
     /**
      * PhyloTree from Newick String, creates a Node/Edge Tree
@@ -36,7 +37,6 @@ public class PhyloTree {
         return null;
     }
 
-    public Graph toGraphStream() {
-        return null;
+    public void buildGraphStream() {
     }
 }
