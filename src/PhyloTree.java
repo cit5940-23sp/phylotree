@@ -5,30 +5,28 @@
 //
 
 import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
 
 import java.util.List;
 
 /**
  * This is a class that acts as a wrapper around the Phylogenetic Tree as a `Node`.
- * It is useful for converting our tree to Newick format, and can also build a
- * tree from a newick formatted string.
+ * It will hold both the actual tree (represented as a `Node` object) as well as
+ * the graphical representation of the tree (represented as a `Graph` graph stream
+ * object.
  */
 public class PhyloTree {
     Node root;
     Graph graphstream;
-
-    /**
-     * PhyloTree from Newick String, creates a Node/Edge Tree
-     * @param newick string to parse to a phyloTree
-     */
-    PhyloTree(String newick) {
-    }
+    final String GRAPH_STREAM_ID = "PhyloTree";
 
     /**
      * PhyloTree from Node/Edge tree
      * @param node
      */
     PhyloTree(Node node) {
+        this.root = node;
+        this.graphstream = new SingleGraph(GRAPH_STREAM_ID);
     }
 
     /**
@@ -53,14 +51,16 @@ public class PhyloTree {
         return null;
     }
 
-    public Node getRootNode() {
-        return null;
+    public void setRootNode(Node node) {
+        this.root = node;
     }
 
-    public String toNewickString() {
-        return null;
+    public Node getRootNode() {
+        return this.root;
     }
 
     public void buildGraphStream() {
+        graphstream.clear();
+        // create graph stream from this.root
     }
 }
