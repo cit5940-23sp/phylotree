@@ -167,13 +167,6 @@ public class PhyloGUI implements ActionListener {
         return graph;
     }
 
-    public static void main(String[] args) {
-        System.setProperty("org.graphstream.ui", "swing");
-        Graph graph = new SingleGraph("Tutorial 1");
-        PhyloGUI gui = new PhyloGUI(graph);
-        javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
-    }
-
     /**
      * Invoked when an action occurs.
      *
@@ -204,5 +197,14 @@ public class PhyloGUI implements ActionListener {
             System.out.println("species");
         }
     }
+
+    public static void main(String[] args) {
+        System.setProperty("org.graphstream.ui", "swing");
+        Graph graph = new SingleGraph("Tutorial 1");
+        PhyloGUI gui = new PhyloGUI(graph);
+        javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
+    }
+
+
 }
 
