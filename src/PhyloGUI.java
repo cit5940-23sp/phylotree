@@ -172,12 +172,9 @@ public class PhyloGUI implements ActionListener {
 
     public static void main(String[] args) {
         Graph graph = new SingleGraph("Tutorial 1");
-        testGraph(graph);
+        //testGraph(graph);
         PhyloGUI gui = new PhyloGUI(graph);
-        //Viewer view = graph.display();
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(() -> gui.createAndShowGUI());
+        javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
     }
 
     /**
