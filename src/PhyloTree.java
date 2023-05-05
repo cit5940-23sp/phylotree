@@ -6,6 +6,8 @@
 
 import org.graphstream.graph.Graph;
 
+import java.util.List;
+
 /**
  * This is a class that acts as a wrapper around the Phylogenetic Tree as a `Node`.
  * It is useful for converting our tree to Newick format, and can also build a
@@ -27,6 +29,28 @@ public class PhyloTree {
      * @param node
      */
     PhyloTree(Node node) {
+    }
+
+    /**
+     * Find top 5 nearest neighbours of given species (query by common name)
+     *
+     * @param commonName
+     * @param speciesList
+     * @param editDistance
+     * @return
+     */
+    public List<String> nearestBySpeciesName(String commonName, List<Species> speciesList, int[][] editDistance) {
+        return null;
+    }
+
+    /**
+     * Find top 5 nearest sequences of given species (query by the DNA sequence)
+     *
+     * @param sequence
+     * @param speciesList
+     */
+    public List<String> nearestBySequence(String sequence, List<Species> speciesList) {
+        return null;
     }
 
     public Node getRootNode() {
