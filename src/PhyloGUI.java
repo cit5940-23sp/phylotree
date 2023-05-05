@@ -140,8 +140,7 @@ public class PhyloGUI implements ActionListener {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        Graph graph = new SingleGraph("Tutorial 1");
+    public static Graph testGraph(Graph graph) {
         graph.addNode("A" );
         graph.addNode("B" );
         graph.addNode("C" );
@@ -168,7 +167,12 @@ public class PhyloGUI implements ActionListener {
             n.setAttribute("ui.label", "Node " + vertid);
             n.edges().forEach(System.out::println);
         }
+        return graph;
+    }
 
+    public static void main(String[] args) {
+        Graph graph = new SingleGraph("Tutorial 1");
+        testGraph(graph);
         PhyloGUI gui = new PhyloGUI(graph);
         //Viewer view = graph.display();
         //Schedule a job for the event-dispatching thread:
@@ -185,8 +189,11 @@ public class PhyloGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
             System.out.println("krus");
+            testGraph(graph);
+            //graph.removeEdge("AC");
         } else if (e.getSource() == this.buttonTb) {
             System.out.println("textbook");
+            this.graph.clear();
         } else if (e.getSource() == this.buttonTrie) {
             System.out.println("trie");
         } else if (e.getSource() == this.buttonDNA) {
