@@ -43,5 +43,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="gs-core-2.0" level="project" />
+    <orderEntry type="library" name="jsoup-1.16.1" level="project" />
   </component>
 </module>
