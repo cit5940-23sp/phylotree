@@ -42,5 +42,15 @@ class EditDistanceTest {
         assertEquals(7, matrix[2][0]);
         assertEquals(matrix[2][0], matrix[0][2]);
     }
+    
+    @Test
+    public void editDistMatrixFullSetTest() {
+        SequenceParser sp = new SequenceParser();
+        List<Species> testList = sp.parseFolder("sequences");
+        EditDistance ed = new EditDistance(testList);
+        System.out.println("BEGIN");
+        int[][] matrix = ed.editDistMatrix();
+        System.out.println(matrix[0][7]);
+    }
 
 }
