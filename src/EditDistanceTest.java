@@ -45,12 +45,20 @@ class EditDistanceTest {
     
     @Test
     public void editDistMatrixFullSetTest() {
+
+        // execution time tracker
+        long startTime = System.currentTimeMillis();
+
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("sequences");
         EditDistance ed = new EditDistance(testList);
         System.out.println("BEGIN");
         int[][] matrix = ed.editDistMatrix();
         System.out.println(matrix[0][7]);
+
+        long endTime = System.currentTimeMillis();
+        // print out the execution time of this full set test
+        System.out.println("Execution time: " + (endTime - startTime) + " milliseconds");
     }
 
 }
