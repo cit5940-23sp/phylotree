@@ -51,16 +51,16 @@ public class PhyloTree {
         return null;
     }
 
-    public void setRootNode(Node node) {
-        this.root = node;
-    }
-
-    public Node getRootNode() {
-        return this.root;
-    }
-
     public void buildGraphStream() {
         graphstream.clear();
         // create graph stream from this.root
+    }
+
+    public void setRoot(Node node) {
+        this.root = node;
+    }
+
+    public Node getRoot() {
+        return this.root;
     }
 }
