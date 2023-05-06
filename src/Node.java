@@ -1,6 +1,6 @@
 
 public class Node {
-    
+    private String id;
     private String specName;
     private Node parent;
     private Node leftChild;
@@ -58,7 +58,12 @@ public class Node {
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
     }
-    
-    
 
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
