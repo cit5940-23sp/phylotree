@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 
 class PhyloTreeTest {
 
-
     @org.junit.jupiter.api.Test
     void testBuildGraphStreamComplex() {
 
@@ -23,4 +22,30 @@ class PhyloTreeTest {
         pt.buildGraphStream();
     }
 
+    @org.junit.jupiter.api.Test
+    void testNearestBySpeciesNameSimple() {
+        // create a graph with 3 files
+        PhyloTree pt = new PhyloTree(null);
+        SequenceParser sp = new SequenceParser();
+        List<Species> testList = sp.parseFolder("test/basic");
+        EditDistance ed = new EditDistance(testList);
+        int[][] editDistance = ed.editDistMatrix();
+
+        List<String> nearest = pt.nearestBySpeciesName("Test1 test1", testList,editDistance);
+        assertEquals(nearest.size(),3); //The top 3 closest species (Even though they are completely different!)
+
+    }
+
+    @org.junit.jupiter.api.Test
+    void testNearestBySequenceSimple() {
+        // create a graph with 3 files
+        PhyloTree pt = new PhyloTree(null);
+        SequenceParser sp = new SequenceParser();
+        List<Species> testList = sp.parseFolder("test/basic");
+
+        List<String> nearest = pt.nearestBySequence("AAAAAAAAAA",testList);
+
+        assertEquals(nearest.get(0).toString(),"Test1 test1");
+
+    }
 }
