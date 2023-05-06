@@ -6,7 +6,7 @@ class PhyloTreeTest {
 
     @org.junit.jupiter.api.Test
     void testBuildGraphStreamComplex() {
-
+        // TODO: complex test
     }
 
 
@@ -30,10 +30,8 @@ class PhyloTreeTest {
         List<Species> testList = sp.parseFolder("test/basic");
         EditDistance ed = new EditDistance(testList);
         int[][] editDistance = ed.editDistMatrix();
-
         List<String> nearest = pt.nearestBySpeciesName("Test1 test1", testList,editDistance);
-        assertEquals(nearest.size(),3); //The top 3 closest species (Even though they are completely different!)
-
+        assertEquals(nearest.size(),3); // The top 3 closest species
     }
 
     @org.junit.jupiter.api.Test
@@ -42,10 +40,7 @@ class PhyloTreeTest {
         PhyloTree pt = new PhyloTree(null);
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("test/basic");
-
         List<String> nearest = pt.nearestBySequence("AAAAAAAAAA",testList);
-
         assertEquals(nearest.get(0).toString(),"Test1 test1");
-
     }
 }
