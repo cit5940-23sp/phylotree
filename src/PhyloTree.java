@@ -8,7 +8,9 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.implementations.SingleGraph;
 
 import java.util.List;
-import java.util.stream.Stream;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * This is a class that acts as a wrapper around the Phylogenetic Tree as a `Node`.
@@ -31,6 +33,7 @@ public class PhyloTree {
         this.graph_stream = new SingleGraph(GRAPH_STREAM_ID);
     }
 
+
     /**
      * Find top 5 nearest neighbours of given species (query by common name)
      *
@@ -40,8 +43,42 @@ public class PhyloTree {
      * @return
      */
     public List<String> nearestBySpeciesName(String commonName, List<Species> speciesList, int[][] editDistance) {
-        return null;
+        int id = -1;  // id for the item
+
+        List<String> closestSpecies = new ArrayList<>();
+        List<Map.Entry<Integer,Integer>> closestIDs = new ArrayList<>();
+
+        for (int i = 0;i < speciesList.size();i++) {
+            if (speciesList.get(i).toString().equals(commonName)) {
+                id = speciesList.get(i).getID();
+                break;
+            }
+        }
+
+        //species not found
+        if (id == -1) {
+            return closestSpecies;
+        }
+
+        //add the closest species objects
+        for (int i = 0; i < editDistance.length;i++) {
+            closestIDs.add(Map.entry(i,editDistance[id][i]));
+        }
+
+        //sort in the ascending order of IDs
+        Collections.sort(closestIDs, (e1, e2) -> e1.getValue().compareTo(e2.getValue()));
+
+        //get the species names
+        for (int i = 0; i < closestIDs.size();i++) {
+            int ID = closestIDs.get(i).getKey();
+            closestSpecies.add(speciesList.get(ID).toString());
+        }
+
+        //return the top 5 species
+        int len = Math.min(closestSpecies.size(),5);
+        return closestSpecies.subList(0,len);
     }
+
 
     /**
      * Find top 5 nearest sequences of given species (query by the DNA sequence)
@@ -50,7 +87,40 @@ public class PhyloTree {
      * @param speciesList
      */
     public List<String> nearestBySequence(String sequence, List<Species> speciesList) {
-        return null;
+        List<String> closestSpecies = new ArrayList<>();
+        List<Map.Entry<Integer,Integer>> closestIDs = new ArrayList<>();
+
+        // create a new species object
+        Species newSpecies = new Species();
+        newSpecies.setGenusName("New Species");
+        newSpecies.setID(speciesList.size());
+        newSpecies.setSequence(sequence);
+
+        // array for edit distance
+        int[] editDistance = new int[speciesList.size()];
+
+        // compute and store the edit distances for the new species
+        EditDistance ed = new EditDistance(speciesList);
+        for (int i = 0; i < speciesList.size();i++) {
+            editDistance[i] = ed.editDist(newSpecies,speciesList.get(i));
+        }
+
+        // add the closest species objects
+        for (int i = 0; i < editDistance.length;i++) {
+            closestIDs.add(Map.entry(i,editDistance[i]));
+        }
+
+        // sort in the ascending order of IDs
+        Collections.sort(closestIDs, (e1, e2) -> e1.getValue().compareTo(e2.getValue()));
+
+        // get the species names
+        for (int i = 0; i < closestIDs.size();i++) {
+            int ID = closestIDs.get(i).getKey();
+            closestSpecies.add(speciesList.get(ID).toString());
+        }
+
+        int len = Math.min(closestSpecies.size(),5);
+        return closestSpecies.subList(0,len);
     }
 
     private boolean isLeaf(Node node) {

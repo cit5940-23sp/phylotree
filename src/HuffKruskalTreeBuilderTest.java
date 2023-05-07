@@ -8,11 +8,10 @@ class HuffKruskalTreeBuilderTest {
 
     @Test
     void testBuildTreeBasic() {
-        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder();
-        hktb.setUp("test/basic");
+        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder("test/basic");
         hktb.buildTree();
         Node mainRoot = hktb.getMainRoot();
-        assertEquals("Test1 test1", mainRoot.getLeftChild().getLeftChild().getSpecName());
+        assertEquals("Test3 test3", mainRoot.getRightChild().getRightChild().getSpecName());
     }
     
     @Test
@@ -28,13 +27,12 @@ class HuffKruskalTreeBuilderTest {
         HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder(specList, matrix);
         hktb.buildTree();
         Node mainRoot = hktb.getMainRoot();
-        assertEquals("Accipiter gentilis", mainRoot.getLeftChild().getSpecName());
+        assertEquals("American Alligator", mainRoot.getLeftChild().getSpecName());
     }
     
     @Test
     void testPrintOut() {
-        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder();
-        hktb.setUp("test/complex2");
+        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder("test/complex2");
         hktb.buildTree();
         Node mainRoot = hktb.getMainRoot();
         String str = "";
