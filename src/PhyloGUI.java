@@ -1,4 +1,3 @@
-import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.*;
 import org.graphstream.graph.Graph;
 import org.graphstream.ui.swing_viewer.SwingViewer;
@@ -15,7 +14,7 @@ import java.awt.event.ActionListener;
 public class PhyloGUI implements ActionListener {
 
     SwingViewer graphViewer;
-    Graph graph;
+    PhyloTree phyloTree;
 
     JButton buttonHuffKruskal;
     JButton buttonTb;
@@ -23,9 +22,9 @@ public class PhyloGUI implements ActionListener {
     JButton buttonDNA;
     JButton buttonSpecies;
 
-    PhyloGUI(Graph graph) {
-        this.graph = graph;
-        graphViewer = new SwingViewer(graph, SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);;
+    PhyloGUI(PhyloTree tree) {
+        this.phyloTree = tree;
+        this.graphViewer = new SwingViewer(tree.getGraphStream(), SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);;
     }
 
     private JMenuBar createMenuBar() {
@@ -137,36 +136,6 @@ public class PhyloGUI implements ActionListener {
         frame.setVisible(true);
     }
 
-    public static Graph testGraph(Graph graph) {
-        graph.addNode("A" );
-        graph.addNode("B" );
-        graph.addNode("C" );
-        graph.addNode("D" );
-        graph.addNode("E" );
-        graph.addNode("S");
-        graph.addNode("X");
-        graph.addEdge("BS", "B", "S");
-        graph.addEdge("BX", "B", "X");
-        graph.addEdge("AB", "A", "B");
-        graph.addEdge("AC", "A", "C");
-        graph.addEdge("CD", "C", "D");
-        graph.addEdge("CE", "C", "E");
-
-
-        String verts = "DESX";
-        for (char i : verts.toCharArray()) {
-            String vertid = String.valueOf(i);
-            Node n = graph.getNode(vertid);
-            n.setAttribute("ui.style", "text-mode: normal;" +
-                    "text-background-mode: plain;" +
-                    "text-alignment: under;" +
-                    "text-size: 40;");
-            n.setAttribute("ui.label", "Node " + vertid);
-            n.edges().forEach(System.out::println);
-        }
-        return graph;
-    }
-
     /**
      * Invoked when an action occurs.
      *
@@ -176,19 +145,8 @@ public class PhyloGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
             System.out.println("krus");
-            graph.clear();
-            testGraph(graph);
         } else if (e.getSource() == this.buttonTb) {
             System.out.println("textbook");
-            this.graph.clear();
-            graph.setStrict(false);
-            graph.setAutoCreate( true );
-            graph.addEdge( "AB", "A", "B" );
-            graph.addEdge( "BC", "A", "C" );
-            graph.addEdge("AE", "A", "E");
-            graph.addEdge("ES", "E", "S");
-            graph.setStrict(true);
-            graph.setAutoCreate( false );
         } else if (e.getSource() == this.buttonTrie) {
             System.out.println("trie");
         } else if (e.getSource() == this.buttonDNA) {
@@ -200,8 +158,15 @@ public class PhyloGUI implements ActionListener {
 
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
-        Graph graph = new SingleGraph("Tutorial 1");
-        PhyloGUI gui = new PhyloGUI(graph);
+
+        Node root = new Node(new Node(null), new Node("Leaf D"));
+        root.getLeftChild().setLeftChild(new Node("Leaf A"));
+        root.getLeftChild().setRightChild(new Node(null));
+        root.getLeftChild().getRightChild().setLeftChild(new Node("Leaf B"));
+        root.getLeftChild().getRightChild().setRightChild(new Node("Leaf C"));
+        PhyloTree pt = new PhyloTree(root);
+        pt.buildGraphStream();
+        PhyloGUI gui = new PhyloGUI(pt);
         javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
     }
 
