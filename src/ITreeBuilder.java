@@ -4,14 +4,11 @@ public interface ITreeBuilder {
      * @param folderPath
      * @return
      */
-    public static void setUp(String folderPath) {
-        
-    }
+    void setUp(String folderPath);
     
     /**
-     * Converts the
-     * @param matrix
-     * @return
+     * Converts data parsed from DNA sequences to a phylogenetic tree.
+     * @return root node of tree
      */
-    public Node buildTree();
+    Node buildTree();
 }
