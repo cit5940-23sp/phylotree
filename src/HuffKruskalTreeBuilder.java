@@ -3,6 +3,12 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * Uses a strategy based on Kruskal's algorithm and Huffman tree building to output a tree
+ * Kruskal based approach to sort edges and always pick lowest
+   Huffman based approach to take two species and put them under a new internal node
+   Take smallest unseen edge and add the two species it connect under a parent internal node
+ */
 public class HuffKruskalTreeBuilder implements ITreeBuilder {
     
     private List<Species> specList;
@@ -30,9 +36,6 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
 
     @Override
     public Node buildTree() {
-        // Use Kruskal based approach to sort edges and always pick lowest
-        // Use Huffman based approach to take two species and put them under on internal node
-        // Take smallest unseen edge and add the two species it connect under a parent internal node
         
         Queue<Edge> frontierQ = getEdgeQueue();
         
@@ -71,6 +74,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
         NameMapper nm = new NameMapper();
         
         for (int i = 0; i < specList.size(); i++) {
+            // Create new Node with the common name of the species
             Node newNode = new Node(nm.getName(specList.get(i).toString()));
             nodeList.add(newNode);
         }
