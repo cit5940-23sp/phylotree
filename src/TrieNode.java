@@ -1,7 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Harry Smith
@@ -66,45 +63,34 @@ public class TrieNode {
         return null;
     }
 
-    public List<Term> inOrderTraversal() {
-        return inOrderTraversalIterative(this);
+    public List<Term> traversal() {
+        return traversalIterative(this);
     }
 
-    private List<Term> inOrderTraversalIterative(TrieNode root) {
+     List<Term> traversalIterative(TrieNode itr) {
+        Stack<TrieNode> stack = new Stack<>();
         List<Term> terms = new ArrayList<>();
-        Deque<TrieNode> stack = new ArrayDeque<>();
-        TrieNode current = root;
 
-        while (current != null || !stack.isEmpty()) {
-            while (current != null) {
-                stack.push(current);
-                if (current.getChildrenSize() > 0) {
-                    current = current.getChild(0);
-                } else {
-                    current = null;
-                }
+        // Push the root node into the stack
+        stack.push(itr);
+
+        // Loop until the stack is empty
+        while (!stack.isEmpty()) {
+            TrieNode current = stack.pop();
+
+            // Check base condition
+            if (current.getWords() == 1) {
+                terms.add(current.getTerm()); // Print character
             }
 
-            if (!stack.isEmpty()) {
-                current = stack.pop();
-                if (current.getWords() == 1) {
-                    terms.add(current.getTerm());
-                }
-
-                int nextChildIndex = -1;
-                for (int i = 0; i < LETTER_COUNT; i++) {
-                    if (current.references[i] != null && (nextChildIndex == -1 || i > nextChildIndex)) {
-                        nextChildIndex = i;
-                    }
-                }
-                if (nextChildIndex != -1) {
-                    current = current.references[nextChildIndex];
-                } else {
-                    current = null;
+            // Loop for checking the value of character
+            for (int i = 0; i < 4; i++) {
+                // If a reference is not null, push it onto the stack
+                if (current.getReferences()[i] != null) {
+                    stack.push(current.getReferences()[i]);
                 }
             }
         }
-
         return terms;
     }
 

@@ -88,9 +88,10 @@ public class TrieTreeBuilder implements ITreeBuilder {
             this.addWord(s.getSequence().toLowerCase().replaceAll("n", ""), s);
         }
 
-        List<Term> terms = this.root.inOrderTraversal();
-        System.out.println(terms);
-        return buildBinaryTreeFromTerms(terms, 0, terms.size() - 1);
+        List<Term> terms = this.root.traversal();
+        System.out.println("size: " + terms.size());
+        this.mainRoot = buildBinaryTreeFromTerms(terms, 0, terms.size() - 1);
+        return this.mainRoot;
     }
 
     public TrieNode getSubTrie(String prefix) {
@@ -106,5 +107,13 @@ public class TrieTreeBuilder implements ITreeBuilder {
             node = node.getReferences()[letter];
         }
         return node;
+    }
+
+    public Node getNodeRoot() {
+        return this.mainRoot;
+    }
+
+    public TrieNode getTrieRoot() {
+        return this.root;
     }
 }
