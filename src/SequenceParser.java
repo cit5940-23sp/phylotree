@@ -3,18 +3,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Array;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SequenceParser {
+
+    // Set file size limit so it won't blow up the heap when computing the edit distance matrix
+    final static int FILE_SIZE_LIMIT = 350;
     
     /**
      * Parse the file to get the species' name and DNA sequence
      * @param fileName is the input file to parse 
      * (format: first line always the header, the rest is the DNA sequence)
-     * @return a Species object where its name and its DNA sequence are stored
+     * @return a Species object where its name and its DNA sequence are stored,
+     * or null if the input file is too large (DNA sequence > 350 lines * 60 characters)
      */
     public Species parseSequence(String fileName) {
         Species ret = new Species();
@@ -35,11 +36,21 @@ public class SequenceParser {
             
             ret.setGenusName(genusName);
             ret.setSpecificEpithet(specificEpithet);
-            
+
+            // create a var to keep track of how many lines have been read
+            int numberOfLines = 0;
+
             // read the rest of the file and store it in sequence
             String line;
             while ((line = bufferedReader.readLine()) != null) {
+                numberOfLines++;
                 sequence += line;
+            }
+
+            // we don't want file that contains > 350 lines of ACTG (will blow the heap)
+            if (numberOfLines > FILE_SIZE_LIMIT) {
+                ret = null;
+                return ret;
             }
 
             bufferedReader.close();
@@ -62,7 +73,7 @@ public class SequenceParser {
     public List<Species>  parseFolder(String folderPath) {
 
         File folder = new File(folderPath);
-        
+
         // get all the files in the directory
         File[] files = folder.listFiles();
 
@@ -70,13 +81,25 @@ public class SequenceParser {
 
         int id = 0;
 
-
+        int numberOfFilesIncluded = 0;
         for (File file : files) {
             Species s = parseSequence(file.getPath());
+
+            // if return value from parseSequence is null
+            // that means the corresponding file is too big to be included
+            if (s == null) {
+                continue;
+            }
+
+            System.out.println("file included: " + file.getName());
+            numberOfFilesIncluded++;
+
             s.setID(id);
             ret.add(s);
             id++;
         }
+
+        System.out.println("numberOfFilesIncluded: " + numberOfFilesIncluded);
 
         return ret;
     }
