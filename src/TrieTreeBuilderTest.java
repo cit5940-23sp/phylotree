@@ -10,12 +10,13 @@ class TrieTreeBuilderTest {
         ttb.setUp("test/basic");
         Node root = ttb.buildTree();
         System.out.println(root);
-//        Node mainRoot = ttb.getMainRoot();
-//        assertEquals("Test1 test1", mainRoot.getLeftChild().getLeftChild().getSpecName());
     }
 
 
     @org.junit.jupiter.api.Test
     void testBuildTreeComplex() {
+        TrieTreeBuilder ttb = new TrieTreeBuilder();
+        ttb.setUp("test/complex");
+        Node root = ttb.buildTree();
     }
 }

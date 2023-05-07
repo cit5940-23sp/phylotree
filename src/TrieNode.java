@@ -1,4 +1,6 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -65,10 +67,48 @@ public class TrieNode {
     }
 
     public List<Term> inOrderTraversal() {
+        return inOrderTraversalIterative(this);
+    }
+
+    private List<Term> inOrderTraversalIterative(TrieNode root) {
         List<Term> terms = new ArrayList<>();
-        inOrderTraversalHelper(this, terms);
+        Deque<TrieNode> stack = new ArrayDeque<>();
+        TrieNode current = root;
+
+        while (current != null || !stack.isEmpty()) {
+            while (current != null) {
+                stack.push(current);
+                if (current.getChildrenSize() > 0) {
+                    current = current.getChild(0);
+                } else {
+                    current = null;
+                }
+            }
+
+            if (!stack.isEmpty()) {
+                current = stack.pop();
+                if (current.getWords() == 1) {
+                    terms.add(current.getTerm());
+                }
+
+                int nextChildIndex = -1;
+                for (int i = 0; i < LETTER_COUNT; i++) {
+                    if (current.references[i] != null && (nextChildIndex == -1 || i > nextChildIndex)) {
+                        nextChildIndex = i;
+                    }
+                }
+                if (nextChildIndex != -1) {
+                    current = current.references[nextChildIndex];
+                } else {
+                    current = null;
+                }
+            }
+        }
+
         return terms;
     }
+
+
 
     private void inOrderTraversalHelper(TrieNode node, List<Term> terms) {
         if (node == null) {
