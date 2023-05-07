@@ -1,0 +1,100 @@
+Accipiter gentilis, Northern Goshawk
+Ailuropoda melanoleuca, Giant Panda
+Alligator mississippiensis, American Alligator
+Anas platyrhynchos, Mallard
+Anser cygnoides, Swan Goose
+Aptenodytes forsteri, Emperor Penguin
+Apus apus, Common Swift
+Artibeus jamaicensis, Jamaican Fruit Bat
+Bombina bombina, Fire-bellied Toad
+Bos taurus, Cattle
+Bufo bufo, Common Toad
+Callithrix jacchus, Common Marmoset
+Calypte anna, Anna's Hummingbird
+Canis lupus, Wolf
+Caretta caretta, Loggerhead Sea Turtle
+Castor canadensis, American Beaver
+Centrocercus urophasianus, Greater Sage-grouse
+Cercocebus atys, Sooty Mangabey
+Chaetura pelagica, Chimney Swift
+Chelonia mydas, Green Sea Turtle
+Chrysemys picta, Painted Turtle
+Columba livia, Rock Dove
+Coturnix japonica, Japanese Quail
+Crocodylus porosus, Saltwater Crocodile
+Cygnus atratus, Black Swan
+Cygnus olor, Mute Swan
+Dasypus novemcinctus, Nine-banded Armadillo
+Desmodus rotundus, Common Vampire Bat
+Dromaius novaehollandiae, Emu
+Echinops telfairi, Lesser Hedgehog Tendrec
+Equus caballus, Horse
+Erinaceus europaeus, European Hedgehog
+Falco peregrinus, Peregrine Falcon
+Felis catus, Cat
+Gallus gallus, Red Junglefowl
+Gorilla gorilla, Western Gorilla
+Grus americana, Whooping Crane
+Haliaeetus albicilla, White-tailed Eagle
+Halichoerus grypus, Grey Seal
+Homo sapiens, Human
+Lemur catta, Ring-tailed Lemur
+Leptonychotes weddellii, Weddell Seal
+Lutra lutra, Eurasian Otter
+Macaca fascicularis, Crab-eating Macaque
+Macaca mulatta, Indochinese Rhesus Macaque
+Macaca nemestrina, Southern Pig-tailed Macaque
+Mandrillus leucophaeus, Drill
+Mauremys reevesii, Chinese Pond Turtle
+Meleagris gallopavo, Wild Turkey
+Meles meles, European Badger
+Mesocricetus auratus, Golden Hamster
+Mirounga angustirostris, Northern Elephant Seal
+Mirounga leonina, Southern Elephant Seal
+Mustela putorius, European Polecat
+Mus musculus, House Mouse
+Nannospalax galili, Blind Mole-rat
+Notechis scutatus, Tiger Snake
+Numida meleagris, Helmet Guineafowl
+Nycticebus coucang, Sunda Slow Loris
+Odobenus rosmarus, Walrus
+Ornithorhynchus anatinus, Platypus
+Oryctolagus cuniculus, European Rabbit
+Oxyura jamaicensis, Ruddy Duck
+Panthera leo, Lion
+Panthera pardus, Leopard
+Panthera tigris, Tiger
+Pan paniscus, Bonobo
+Pan troglodytes, Chimpanzee
+Papio anubis, Olive Baboon
+Parus major, Great Tit
+Passer montanus, Eurasian Tree Sparrow
+Phasianus colchicus, Ring-necked Pheasant
+Phoca vitulina, Harbor Seal
+Phyllostomus hastatus, Greater Spear-nosed Bat
+Pongo abelii, Sumatran Orangutan
+Pongo pygmaeus, Orangutan
+Protopterus annectens, West African Lungfish
+Pseudonaja textilis, Eastern Brown Snake
+Pteropus alecto, Black Flying Fox
+Puma concolor, Cougar
+Rana temporaria, Common Frog
+Rattus norvegicus, Brown Rat
+Rhinatrema bivittatum, Rhinatrema
+Rousettus aegyptiacus, Egyptian Fruit Bat
+Sapajus apella, Tufted Capuchin
+Sarcophilus harrisii, Tasmanian Devil
+Sceloporus undulatus, Eastern Fence Lizard
+Serinus canaria, Atlantic Canary
+Sturnus vulgaris, Common Starling
+Sus scrofa, Wild Boar
+Tachyglossus aculeatus, Short-beaked Echidna
+Theropithecus gelada, Gelada
+Trachemys scripta, Pond Slider
+Trichosurus vulpecula, Common Brushtail Possum
+Ursus americanus, American Black Bear
+Ursus arctos, Brown Bear
+Vulpes vulpes, Red Fox
+Xenopus tropicalis, Western Clawed Frog
+Zalophus californianus, California Sea Lion
+Zootoca vivipara, Viviparous Lizard
