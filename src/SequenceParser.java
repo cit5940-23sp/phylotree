@@ -6,10 +6,17 @@ import java.sql.Array;
 import java.util.*;
 
 public class SequenceParser {
+    private final static int DEFAULT_LIMIT = 350;
+    private final int sizeLimit;
 
-    // Set file size limit so it won't blow up the heap when computing the edit distance matrix
-    final static int FILE_SIZE_LIMIT = 350;
-    
+    SequenceParser() {
+        this.sizeLimit = DEFAULT_LIMIT;
+    }
+
+    SequenceParser(int sizeLimit) {
+        this.sizeLimit = sizeLimit;
+    }
+
     /**
      * Parse the file to get the species' name and DNA sequence
      * @param fileName is the input file to parse 
@@ -48,7 +55,7 @@ public class SequenceParser {
             }
 
             // we don't want file that contains > 350 lines of ACTG (will blow the heap)
-            if (numberOfLines > FILE_SIZE_LIMIT) {
+            if (numberOfLines > sizeLimit) {
                 ret = null;
                 return ret;
             }

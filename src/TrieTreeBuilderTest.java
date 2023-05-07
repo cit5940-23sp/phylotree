@@ -12,11 +12,12 @@ class TrieTreeBuilderTest {
         System.out.println(root);
     }
 
-
     @org.junit.jupiter.api.Test
     void testBuildTreeComplex() {
-        TrieTreeBuilder ttb = new TrieTreeBuilder();
-        ttb.setUp("test/complex");
+        SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
+        List<Species> specList = sp.parseFolder("test/complex");
+        TrieTreeBuilder ttb = new TrieTreeBuilder(specList);
         Node root = ttb.buildTree();
+        System.out.println(root);
     }
 }
