@@ -1,4 +1,6 @@
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class TrieTreeBuilder implements ITreeBuilder {
 
@@ -26,6 +28,24 @@ public class TrieTreeBuilder implements ITreeBuilder {
         // parse folder
         SequenceParser sp = new SequenceParser();
         specList = sp.parseFolder(folderPath);
+    }
+
+    private Node buildBinaryTreeFromTerms(List<Term> terms, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+
+        if (start == end) {
+            return new Node(terms.get(start).getSpec().toString());
+        }
+
+        int mid = (start + end) / 2;
+        Node node = new Node(null);
+
+        node.setLeftChild(buildBinaryTreeFromTerms(terms, start, mid));
+        node.setRightChild(buildBinaryTreeFromTerms(terms, mid + 1, end));
+
+        return node;
     }
 
     public void addWord(String word, Species spec) {
@@ -68,7 +88,9 @@ public class TrieTreeBuilder implements ITreeBuilder {
             this.addWord(s.getSequence().toLowerCase().replaceAll("n", ""), s);
         }
 
-        return null;
+        List<Term> terms = this.root.inOrderTraversal();
+        System.out.println(terms);
+        return buildBinaryTreeFromTerms(terms, 0, terms.size() - 1);
     }
 
     public TrieNode getSubTrie(String prefix) {

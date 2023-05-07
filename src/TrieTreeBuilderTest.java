@@ -8,7 +8,8 @@ class TrieTreeBuilderTest {
     void testBuildTreeSimple() {
         TrieTreeBuilder ttb = new TrieTreeBuilder();
         ttb.setUp("test/basic");
-        ttb.buildTree();
+        Node root = ttb.buildTree();
+        System.out.println(root);
 //        Node mainRoot = ttb.getMainRoot();
 //        assertEquals("Test1 test1", mainRoot.getLeftChild().getLeftChild().getSpecName());
     }
