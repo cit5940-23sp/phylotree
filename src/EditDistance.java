@@ -40,7 +40,6 @@ public class EditDistance {
     
     /**
      * Calculate edit distances between two species
-     * @param input species whose sequences will be compared
      * @return edit distance
      */
     public int editDist(Species spec1, Species spec2) {

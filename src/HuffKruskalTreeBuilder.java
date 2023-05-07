@@ -14,7 +14,7 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     private List<Species> specList;
     private int[][] matrix;
     private Node mainRoot;
-    
+
     public HuffKruskalTreeBuilder(String folderPath) {
         setUp(folderPath);
     }
@@ -25,14 +25,15 @@ public class HuffKruskalTreeBuilder implements ITreeBuilder {
     }
     
     public void setUp(String folderPath) {
+        // parse folder
         SequenceParser sp = new SequenceParser();
-        
+        // generate edit distance matrix
         this.specList = sp.parseFolder(folderPath);
-        
+
         EditDistance ed = new EditDistance(specList);
-        
         this.matrix = ed.editDistMatrix();
     }
+
 
     @Override
     public Node buildTree() {
