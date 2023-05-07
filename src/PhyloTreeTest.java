@@ -4,7 +4,6 @@ import java.util.stream.Stream;
 
 class PhyloTreeTest {
 
-
     @org.junit.jupiter.api.Test
     void testBuildGraphStreamComplex() {
 
