@@ -9,6 +9,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 
 public class PhyloGUI implements ActionListener {
@@ -158,12 +159,11 @@ public class PhyloGUI implements ActionListener {
 
     public static void main(String[] args) {
         System.setProperty("org.graphstream.ui", "swing");
+        SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
+        List<Species> specList = sp.parseFolder("sequences");
+        TrieTreeBuilder ttb = new TrieTreeBuilder(specList);
+        Node root = ttb.buildTree();
 
-        Node root = new Node(new Node(null), new Node("Leaf D"));
-        root.getLeftChild().setLeftChild(new Node("Leaf A"));
-        root.getLeftChild().setRightChild(new Node(null));
-        root.getLeftChild().getRightChild().setLeftChild(new Node("Leaf B"));
-        root.getLeftChild().getRightChild().setRightChild(new Node("Leaf C"));
         PhyloTree pt = new PhyloTree(root);
         pt.buildGraphStream();
         PhyloGUI gui = new PhyloGUI(pt);

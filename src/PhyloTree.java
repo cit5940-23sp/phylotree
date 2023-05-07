@@ -76,7 +76,7 @@ public class PhyloTree {
             n.setAttribute("ui.style", "text-mode: normal;" +
                     "text-background-mode: plain;" +
                     "text-alignment: under;" +
-                    "text-size: 40;");
+                    "text-size: 20;");
             n.setAttribute("ui.label", id);
             node.setId(id);
         } else {
