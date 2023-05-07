@@ -13,11 +13,13 @@ public class NameMapper {
     public NameMapper() {
         this.fileName = "names.txt";
         this.map = new HashMap<String, String>();
+        createMap();
     }
     
     public NameMapper(String fileName) {
         this.fileName = fileName;
         this.map = new HashMap<String, String>();
+        createMap();
     }
     
     public Map<String, String> createMap() {
@@ -37,13 +39,18 @@ public class NameMapper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+                
         while (!(entry == null)) {
             String[] names = entry.split(",");
             if (names.length == 2) {
                 String scientificName = names[0].trim();
                 String commonName = names[1].trim();
                 map.put(scientificName, commonName);
+            }
+            try {
+                entry = r.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
         
