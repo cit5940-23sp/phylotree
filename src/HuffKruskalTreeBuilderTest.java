@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HuffKruskalTreeBuilderTest {
@@ -14,7 +16,15 @@ class HuffKruskalTreeBuilderTest {
     
     @Test
     void testBuildTreeComplex() {
-        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder("test/complex");
+        // parse folder
+        SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
+        List<Species> specList = sp.parseFolder("test/complex");
+
+        // generate edit distance matrix
+        EditDistance ed = new EditDistance(specList);
+        int[][] matrix = ed.editDistMatrix();
+
+        HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder(specList, matrix);
         hktb.buildTree();
         Node mainRoot = hktb.getMainRoot();
         assertEquals("American Alligator", mainRoot.getLeftChild().getSpecName());
