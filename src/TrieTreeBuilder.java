@@ -41,10 +41,8 @@ public class TrieTreeBuilder implements ITreeBuilder {
 
         int mid = (start + end) / 2;
         Node node = new Node(null);
-
         node.setLeftChild(buildBinaryTreeFromTerms(terms, start, mid));
         node.setRightChild(buildBinaryTreeFromTerms(terms, mid + 1, end));
-
         return node;
     }
 
@@ -92,21 +90,6 @@ public class TrieTreeBuilder implements ITreeBuilder {
         System.out.println("size: " + terms.size());
         this.mainRoot = buildBinaryTreeFromTerms(terms, 0, terms.size() - 1);
         return this.mainRoot;
-    }
-
-    public TrieNode getSubTrie(String prefix) {
-        TrieNode node = root;
-        for (int c : prefix.toLowerCase().toCharArray()) {
-            if (!Character.isLetter(c)) {
-                return null;
-            }
-            int letter = c - 'a';
-            if (node.getReferences()[letter] == null) {
-                return null;
-            }
-            node = node.getReferences()[letter];
-        }
-        return node;
     }
 
     public Node getNodeRoot() {

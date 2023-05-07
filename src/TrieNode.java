@@ -35,39 +35,11 @@ public class TrieNode {
         references = new TrieNode[LETTER_COUNT];
     }
 
-    public int getChildrenSize() {
-        int count = 0;
-        for (int i = 0; i < LETTER_COUNT; i++) {
-            if (references[i] != null) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    public TrieNode getChild(int c) throws IndexOutOfBoundsException {
-        int size = this.getChildrenSize() - 1;
-        if (c > size || c < 0) {
-            throw new IndexOutOfBoundsException();
-        }
-
-        for (int i = 0; i < LETTER_COUNT; i++) {
-            if (references[i] != null) {
-                size--;
-                if (size == 0) {
-                    return references[i];
-                }
-            }
-        }
-
-        return null;
-    }
-
     public List<Term> traversal() {
         return traversalIterative(this);
     }
 
-     List<Term> traversalIterative(TrieNode itr) {
+    List<Term> traversalIterative(TrieNode itr) {
         Stack<TrieNode> stack = new Stack<>();
         List<Term> terms = new ArrayList<>();
 
@@ -92,24 +64,6 @@ public class TrieNode {
             }
         }
         return terms;
-    }
-
-
-
-    private void inOrderTraversalHelper(TrieNode node, List<Term> terms) {
-        if (node == null) {
-            return;
-        }
-
-        for (int i = 0; i < LETTER_COUNT; i++) {
-            TrieNode child = node.references[i];
-            if (child != null) {
-                inOrderTraversalHelper(child, terms);
-                if (child.getWords() == 1) {
-                    terms.add(child.getTerm());
-                }
-            }
-        }
     }
 
     public Term getTerm() {

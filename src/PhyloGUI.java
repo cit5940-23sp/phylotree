@@ -163,7 +163,6 @@ public class PhyloGUI implements ActionListener {
         List<Species> specList = sp.parseFolder("sequences");
         TrieTreeBuilder ttb = new TrieTreeBuilder(specList);
         Node root = ttb.buildTree();
-
         PhyloTree pt = new PhyloTree(root);
         pt.buildGraphStream();
         PhyloGUI gui = new PhyloGUI(pt);
