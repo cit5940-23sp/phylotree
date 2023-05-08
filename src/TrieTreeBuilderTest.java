@@ -24,6 +24,6 @@ class TrieTreeBuilderTest {
         System.out.println(root);
         assertNull(root.getSpecName());
         assertNull(root.getLeftChild().getSpecName());
-        assertEquals("Anas platyrhynchos", root.getLeftChild().getLeftChild().getSpecName());
+        assertEquals("Mallard", root.getLeftChild().getLeftChild().getSpecName());
     }
 }
