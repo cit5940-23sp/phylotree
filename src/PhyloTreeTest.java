@@ -5,10 +5,11 @@ import java.util.stream.Stream;
 class PhyloTreeTest {
 
     @org.junit.jupiter.api.Test
-    void testBuildGraphStreamComplex() {
-        // TODO: complex test
+    void testRunGUI() {
+        PhyloGUI gui = new PhyloGUI("test/basic");
+        gui.run();
+        assertNotNull(gui);
     }
-
 
     @org.junit.jupiter.api.Test
     void testBuildGraphStreamSimple() {
