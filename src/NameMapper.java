@@ -22,6 +22,11 @@ public class NameMapper {
         createMap();
     }
     
+    /**
+     * Parses every line in the names file to a map with the scientific name as 
+     * the key, and the common name as the value
+     * @return map of scientific names to common names
+     */
     public Map<String, String> createMap() {
         
         BufferedReader r = null;
