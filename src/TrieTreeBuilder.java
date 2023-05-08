@@ -29,12 +29,13 @@ public class TrieTreeBuilder implements ITreeBuilder {
     }
 
     private Node buildBinaryTreeFromTerms(List<Term> terms, int start, int end) {
+        NameMapper nm = new NameMapper();
         if (start > end) {
             return null;
         }
 
         if (start == end) {
-            return new Node(terms.get(start).getSpec().toString());
+            return new Node(nm.getName(terms.get(start).getSpec().toString()));
         }
 
         int mid = (start + end) / 2;
