@@ -14,18 +14,21 @@ import java.util.List;
 
 public class PhyloGUI implements ActionListener {
 
-    SwingViewer graphViewer;
-    PhyloTree phyloTree;
+    private final String FOLDER_PATH;
+    private List<Species> specList;
+    private int[][] editDistanceMatrix;
 
-    JButton buttonHuffKruskal;
-    JButton buttonTb;
-    JButton buttonTrie;
-    JButton buttonDNA;
-    JButton buttonSpecies;
+    private SwingViewer graphViewer;
+    private PhyloTree phyloTree;
 
-    PhyloGUI(PhyloTree tree) {
-        this.phyloTree = tree;
-        this.graphViewer = new SwingViewer(tree.getGraphStream(), SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);;
+    private JButton buttonHuffKruskal;
+    private JButton buttonTb;
+    private JButton buttonTrie;
+    private JButton buttonDNA;
+    private JButton buttonSpecies;
+
+    PhyloGUI(String folderPath) {
+        FOLDER_PATH = folderPath;
     }
 
     private JMenuBar createMenuBar() {
@@ -66,9 +69,6 @@ public class PhyloGUI implements ActionListener {
         this.buttonHuffKruskal = new JButton("Huff-Kruskal");
         this.buttonHuffKruskal.addActionListener(this);
         panel.add(buttonHuffKruskal);
-        this.buttonTb = new JButton("Textbook");
-        this.buttonTb.addActionListener(this);
-        panel.add(buttonTb);
         this.buttonTrie = new JButton("Trie");
         this.buttonTrie.addActionListener(this);
         panel.add(buttonTrie);
@@ -146,10 +146,21 @@ public class PhyloGUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
             System.out.println("krus");
+            HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder(
+                    this.specList,
+                    this.editDistanceMatrix
+            );
+            Node root = hktb.buildTree();
+            this.phyloTree.setRoot(root);
+            this.phyloTree.buildGraphStream();
         } else if (e.getSource() == this.buttonTb) {
             System.out.println("textbook");
         } else if (e.getSource() == this.buttonTrie) {
             System.out.println("trie");
+            TrieTreeBuilder ttb = new TrieTreeBuilder(this.specList);
+            Node root = ttb.buildTree();
+            this.phyloTree.setRoot(root);
+            this.phyloTree.buildGraphStream();
         } else if (e.getSource() == this.buttonDNA) {
             System.out.println("dna");
         } else if (e.getSource() == this.buttonSpecies) {
@@ -157,16 +168,26 @@ public class PhyloGUI implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
+    public void run() {
         System.setProperty("org.graphstream.ui", "swing");
         SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
-        List<Species> specList = sp.parseFolder("sequences");
-        TrieTreeBuilder ttb = new TrieTreeBuilder(specList);
-        Node root = ttb.buildTree();
-        PhyloTree pt = new PhyloTree(root);
-        pt.buildGraphStream();
-        PhyloGUI gui = new PhyloGUI(pt);
-        javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
+
+        // get spec list + edit distance
+        this.specList = sp.parseFolder(FOLDER_PATH);  // set path
+        EditDistance ed = new EditDistance(specList);
+        this.editDistanceMatrix = ed.editDistMatrix();
+
+        // make empty phylo tree
+        PhyloTree pt = new PhyloTree(new Node(""));
+
+        this.phyloTree = pt;
+        this.graphViewer = new SwingViewer(pt.getGraphStream(), SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+        javax.swing.SwingUtilities.invokeLater(this::createAndShowGUI);
+    }
+
+    public static void main(String[] args) {
+        PhyloGUI pt = new PhyloGUI("test/basic");
+        pt.run();
     }
 
 

@@ -44,7 +44,6 @@ class EditDistanceTest {
     
     @Test
     public void editDistMatrixFullSetTest() {
-
         // execution time tracker
         long startTime = System.currentTimeMillis();
 
