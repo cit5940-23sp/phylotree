@@ -49,10 +49,10 @@ class EditDistanceTest {
         long startTime = System.currentTimeMillis();
 
         SequenceParser sp = new SequenceParser();
-        List<Species> testList = sp.parseFolder("sequences");
+        List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         int[][] matrix = ed.editDistMatrix();
-        System.out.println(matrix[0][7]);
+        System.out.println(matrix[0][2]);
 
         long endTime = System.currentTimeMillis();
         // print out the execution time of this full set test
