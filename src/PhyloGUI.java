@@ -22,7 +22,6 @@ public class PhyloGUI implements ActionListener {
     private PhyloTree phyloTree;
 
     private JButton buttonHuffKruskal;
-    private JButton buttonTb;
     private JButton buttonTrie;
     private JButton buttonDNA;
     private JButton buttonSpecies;
@@ -127,7 +126,6 @@ public class PhyloGUI implements ActionListener {
         // Create a JPanel to hold the Viewer component
         JPanel viewerPanel = new JPanel(new BorderLayout());
         viewerPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        //viewerPanel.setBorder(BorderFactory.createTitledBorder("Tree View"));
         viewerPanel.add((Component) view, BorderLayout.CENTER);
 
         // Add the Viewer JPanel to the frame
@@ -138,13 +136,14 @@ public class PhyloGUI implements ActionListener {
     }
 
     /**
-     * Invoked when an action occurs.
+     * Invoked when an action occurs (one of the buttons are pressed)
      *
      * @param e the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
+            // Huffman-Kruskal method
             System.out.println("krus");
             HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder(
                     this.specList,
@@ -153,24 +152,54 @@ public class PhyloGUI implements ActionListener {
             Node root = hktb.buildTree();
             this.phyloTree.setRoot(root);
             this.phyloTree.buildGraphStream();
-        } else if (e.getSource() == this.buttonTb) {
-            System.out.println("textbook");
         } else if (e.getSource() == this.buttonTrie) {
+            // Trie method
             System.out.println("trie");
             TrieTreeBuilder ttb = new TrieTreeBuilder(this.specList);
             Node root = ttb.buildTree();
             this.phyloTree.setRoot(root);
             this.phyloTree.buildGraphStream();
         } else if (e.getSource() == this.buttonDNA) {
+            // query by DNA Sequence
             System.out.println("dna");
+            showQueryPopup("Query by DNA Sequence");
         } else if (e.getSource() == this.buttonSpecies) {
+            // query by species name
             System.out.println("species");
+            showQueryPopup("Query by Species Name (Scientific Name)");
         }
+    }
+
+    private void showQueryPopup(String title) {
+        // Create a JDialog
+        JDialog queryDialog = new JDialog();
+        queryDialog.setTitle(title);
+        queryDialog.setModal(true);
+        queryDialog.setSize(400, 300);
+        queryDialog.setLocationRelativeTo(null);
+        queryDialog.setLayout(new BorderLayout());
+
+        // Create a JTextArea for the editable textbox
+        JTextArea textArea = new JTextArea();
+        queryDialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        // Create a submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(e -> {
+            String queryText = textArea.getText();
+            // Process the query here
+            System.out.println("Query text: " + queryText);
+            queryDialog.dispose();
+        });
+        queryDialog.add(submitButton, BorderLayout.SOUTH);
+
+        // Show the JDialog
+        queryDialog.setVisible(true);
     }
 
     public void run() {
         System.setProperty("org.graphstream.ui", "swing");
-        SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
+        SequenceParser sp = new SequenceParser(260);
 
         // get spec list + edit distance
         this.specList = sp.parseFolder(FOLDER_PATH);  // set path

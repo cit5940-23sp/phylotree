@@ -23,6 +23,7 @@ public class PhyloTree {
     private Graph graph_stream;
     private int count = 0;
     private final String GRAPH_STREAM_ID = "PhyloTree";
+    private NameMapper nameMapper;
 
     /**
      * PhyloTree from Node/Edge tree
@@ -31,25 +32,26 @@ public class PhyloTree {
     PhyloTree(Node node) {
         this.root = node;
         this.graph_stream = new SingleGraph(GRAPH_STREAM_ID);
+        this.nameMapper = new NameMapper();
     }
 
 
     /**
      * Find top 5 nearest neighbours of given species (query by common name)
      *
-     * @param commonName
+     * @param scientificName
      * @param speciesList
      * @param editDistance
      * @return
      */
-    public List<String> nearestBySpeciesName(String commonName, List<Species> speciesList, int[][] editDistance) {
+    public List<String> nearestBySpeciesName(String scientificName, List<Species> speciesList, int[][] editDistance) {
         int id = -1;  // id for the item
 
         List<String> closestSpecies = new ArrayList<>();
         List<Map.Entry<Integer,Integer>> closestIDs = new ArrayList<>();
 
         for (int i = 0;i < speciesList.size();i++) {
-            if (speciesList.get(i).toString().equals(commonName)) {
+            if (speciesList.get(i).toString().equals(scientificName)) {
                 id = speciesList.get(i).getID();
                 break;
             }
@@ -71,12 +73,12 @@ public class PhyloTree {
         //get the species names
         for (int i = 0; i < closestIDs.size();i++) {
             int ID = closestIDs.get(i).getKey();
-            closestSpecies.add(speciesList.get(ID).toString());
+            closestSpecies.add(this.nameMapper.getName(speciesList.get(ID).toString()));
         }
 
         //return the top 5 species
-        int len = Math.min(closestSpecies.size(),5);
-        return closestSpecies.subList(0,len);
+        int len = Math.min(closestSpecies.size(), 5);
+        return closestSpecies.subList(0, len);
     }
 
 
@@ -116,11 +118,11 @@ public class PhyloTree {
         // get the species names
         for (int i = 0; i < closestIDs.size();i++) {
             int ID = closestIDs.get(i).getKey();
-            closestSpecies.add(speciesList.get(ID).toString());
+            closestSpecies.add(this.nameMapper.getName(speciesList.get(ID).toString()));
         }
 
-        int len = Math.min(closestSpecies.size(),5);
-        return closestSpecies.subList(0,len);
+        int len = Math.min(closestSpecies.size(), 5);
+        return closestSpecies.subList(0, len);
     }
 
     private boolean isLeaf(Node node) {
