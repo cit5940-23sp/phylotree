@@ -51,7 +51,6 @@ class EditDistanceTest {
         SequenceParser sp = new SequenceParser();
         List<Species> testList = sp.parseFolder("sequences");
         EditDistance ed = new EditDistance(testList);
-        System.out.println("BEGIN");
         int[][] matrix = ed.editDistMatrix();
         System.out.println(matrix[0][7]);
 
