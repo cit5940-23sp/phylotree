@@ -29,6 +29,7 @@ public class PhyloGUI implements ActionListener {
 
     PhyloGUI(String folderPath) {
         FOLDER_PATH = folderPath;
+        this.queryText = "";
     }
 
     private JMenuBar createMenuBar() {
