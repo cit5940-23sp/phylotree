@@ -14,18 +14,22 @@ import java.util.List;
 
 public class PhyloGUI implements ActionListener {
 
-    SwingViewer graphViewer;
-    PhyloTree phyloTree;
+    private final String FOLDER_PATH;
+    private List<Species> specList;
+    private int[][] editDistanceMatrix;
 
-    JButton buttonHuffKruskal;
-    JButton buttonTb;
-    JButton buttonTrie;
-    JButton buttonDNA;
-    JButton buttonSpecies;
+    private SwingViewer graphViewer;
+    private PhyloTree phyloTree;
 
-    PhyloGUI(PhyloTree tree) {
-        this.phyloTree = tree;
-        this.graphViewer = new SwingViewer(tree.getGraphStream(), SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);;
+    private JButton buttonHuffKruskal;
+    private JButton buttonTrie;
+    private JButton buttonDNA;
+    private JButton buttonSpecies;
+    private String queryText;
+
+    PhyloGUI(String folderPath) {
+        FOLDER_PATH = folderPath;
+        this.queryText = "";
     }
 
     private JMenuBar createMenuBar() {
@@ -66,9 +70,6 @@ public class PhyloGUI implements ActionListener {
         this.buttonHuffKruskal = new JButton("Huff-Kruskal");
         this.buttonHuffKruskal.addActionListener(this);
         panel.add(buttonHuffKruskal);
-        this.buttonTb = new JButton("Textbook");
-        this.buttonTb.addActionListener(this);
-        panel.add(buttonTb);
         this.buttonTrie = new JButton("Trie");
         this.buttonTrie.addActionListener(this);
         panel.add(buttonTrie);
@@ -127,7 +128,6 @@ public class PhyloGUI implements ActionListener {
         // Create a JPanel to hold the Viewer component
         JPanel viewerPanel = new JPanel(new BorderLayout());
         viewerPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        //viewerPanel.setBorder(BorderFactory.createTitledBorder("Tree View"));
         viewerPanel.add((Component) view, BorderLayout.CENTER);
 
         // Add the Viewer JPanel to the frame
@@ -138,35 +138,94 @@ public class PhyloGUI implements ActionListener {
     }
 
     /**
-     * Invoked when an action occurs.
+     * Invoked when an action occurs (one of the buttons are pressed)
      *
      * @param e the event to be processed
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.buttonHuffKruskal) {
+            // Huffman-Kruskal method
             System.out.println("krus");
-        } else if (e.getSource() == this.buttonTb) {
-            System.out.println("textbook");
+            HuffKruskalTreeBuilder hktb = new HuffKruskalTreeBuilder(
+                    this.specList,
+                    this.editDistanceMatrix
+            );
+            Node root = hktb.buildTree();
+            this.phyloTree.setRoot(root);
+            this.phyloTree.buildGraphStream();
         } else if (e.getSource() == this.buttonTrie) {
+            // Trie method
             System.out.println("trie");
+            TrieTreeBuilder ttb = new TrieTreeBuilder(this.specList);
+            Node root = ttb.buildTree();
+            this.phyloTree.setRoot(root);
+            this.phyloTree.buildGraphStream();
         } else if (e.getSource() == this.buttonDNA) {
+            // query by DNA Sequence
             System.out.println("dna");
+            showQueryPopup("Query by DNA Sequence");
+            List<String> query = this.phyloTree.nearestBySequence(this.queryText, this.specList);
+            this.phyloTree.highlight(query);
         } else if (e.getSource() == this.buttonSpecies) {
+            // query by species name
             System.out.println("species");
+            showQueryPopup("Query by Species Name (Scientific Name)");
+            System.out.println(queryText);
+            List<String> query = this.phyloTree.nearestBySpeciesName(
+                    this.queryText, this.specList, this.editDistanceMatrix);
+            this.phyloTree.highlight(query);
         }
     }
 
-    public static void main(String[] args) {
+    private void showQueryPopup(String title) {
+        // Create a JDialog
+        JDialog queryDialog = new JDialog();
+        queryDialog.setTitle(title);
+        queryDialog.setModal(true);
+        queryDialog.setSize(400, 300);
+        queryDialog.setLocationRelativeTo(null);
+        queryDialog.setLayout(new BorderLayout());
+
+        // Create a JTextArea for the editable textbox
+        JTextArea textArea = new JTextArea();
+        queryDialog.add(new JScrollPane(textArea), BorderLayout.CENTER);
+
+        // Create a submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(e -> {
+            this.queryText = textArea.getText();
+            queryDialog.dispose();
+        });
+        queryDialog.add(submitButton, BorderLayout.SOUTH);
+
+        // Show the JDialog
+        queryDialog.setVisible(true);
+    }
+
+    public void run() {
         System.setProperty("org.graphstream.ui", "swing");
-        SequenceParser sp = new SequenceParser(Integer.MAX_VALUE);
-        List<Species> specList = sp.parseFolder("sequences");
-        TrieTreeBuilder ttb = new TrieTreeBuilder(specList);
-        Node root = ttb.buildTree();
-        PhyloTree pt = new PhyloTree(root);
-        pt.buildGraphStream();
-        PhyloGUI gui = new PhyloGUI(pt);
-        javax.swing.SwingUtilities.invokeLater(gui::createAndShowGUI);
+        SequenceParser sp = new SequenceParser(260);
+
+        // get spec list + edit distance
+        this.specList = sp.parseFolder(FOLDER_PATH);  // set path
+        EditDistance ed = new EditDistance(specList);
+        this.editDistanceMatrix = ed.editDistMatrix();
+
+        // make empty phylo tree
+        PhyloTree pt = new PhyloTree(new Node(""));
+
+        this.phyloTree = pt;
+        this.graphViewer = new SwingViewer(
+                pt.getGraphStream(),
+                SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD
+        );
+        javax.swing.SwingUtilities.invokeLater(this::createAndShowGUI);
+    }
+
+    public static void main(String[] args) {
+        PhyloGUI pt = new PhyloGUI("sequences");
+        pt.run();
     }
 
 

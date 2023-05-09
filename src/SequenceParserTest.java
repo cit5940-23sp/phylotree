@@ -2,7 +2,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 
 class SequenceParserTest {
-    String folderPath = "test/complex";
+    String folderPath = "test/complex3";
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
 
@@ -15,7 +15,7 @@ class SequenceParserTest {
 
     @org.junit.jupiter.api.Test
     void parseSequence() {
-        SequenceParser sp = new SequenceParser();
+        SequenceParser sp = new SequenceParser(500);
         Species actual = sp.parseSequence(folderPath + "/accipiter_gentilis.txt");
 
         Species expected = new Species();
@@ -35,7 +35,7 @@ class SequenceParserTest {
 
     @org.junit.jupiter.api.Test
     void parseFolder() {
-        SequenceParser sp = new SequenceParser();
+        SequenceParser sp = new SequenceParser(500);
         List<Species> actualTemp = sp.parseFolder(folderPath);
 
         Set<Species> actual = new TreeSet<>(new SequenceComparator());

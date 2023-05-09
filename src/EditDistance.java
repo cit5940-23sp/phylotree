@@ -15,9 +15,7 @@ public class EditDistance {
     public int[][] editDistMatrix() {
         // Initialize 2D array
         int[][] matrix = new int[specList.size()][specList.size()];
-        
-        //int k = 1;
-        
+               
         // Iterate through every pair of species
         for (Species spec1 : specList) {
             for (Species spec2 : specList) {
@@ -28,10 +26,6 @@ public class EditDistance {
                 // Add both "edges"
                 matrix[spec1.getID()][spec2.getID()] = dist;
                 matrix[spec2.getID()][spec1.getID()] = dist;
-                
-                //System.out.println("Finished: " + k);
-                //System.out.println("Species 1: " + spec1.toString() + ", Species 2: " + spec2.toString());
-                //k++;
             }
         }
         
@@ -48,7 +42,7 @@ public class EditDistance {
         String seq2 = spec2.getSequence();
         
         // Create 2D array for dynamic programming approach 
-        int[][] dpArray = new int[seq1.length() + 1][seq2.length() + 1];
+        char[][] dpArray = new char[seq1.length() + 1][seq2.length() + 1];
         
         // Iterate through every pair of letters between the 2 strings
         for (int i = 0; i <= seq1.length(); i++) {
@@ -56,12 +50,12 @@ public class EditDistance {
                 
                 // Case 1: seq1 is empty
                 if (i == 0) {
-                    dpArray[i][j] = j;
+                    dpArray[i][j] = (char) j;
                 }
                 
                 // Case 2: seq2 is empty 
                 else if (j == 0) {
-                    dpArray[i][j] = i;
+                    dpArray[i][j] = (char) i;
                 }
                 // Case 3: last char matches and isn't N
                 else if (seq1.charAt(i - 1) == seq2.charAt(j - 1) && seq1.charAt(i - 1) != 'N') {
@@ -70,13 +64,13 @@ public class EditDistance {
                 // Case 4: last char doesn't match
                 else {
                     // Take the min of insert, delete, replace options
-                    dpArray[i][j] = 1 + Math.min(dpArray[i][j - 1],
-                            Math.min(dpArray[i - 1][j], dpArray[i - 1][j - 1]));
+                    dpArray[i][j] = (char) (1 + Math.min(dpArray[i][j - 1],
+                            Math.min((int) dpArray[i - 1][j], (int) dpArray[i - 1][j - 1])));
                 }
             }
         }
         
-        int ret = dpArray[seq1.length()][seq2.length()];
+        int ret = (int) dpArray[seq1.length()][seq2.length()];
         
         dpArray = null;
         
