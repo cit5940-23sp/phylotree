@@ -215,7 +215,7 @@ public class PhyloGUI implements ActionListener {
     }
 
     public static void main(String[] args) {
-        PhyloGUI pt = new PhyloGUI("test/basic");
+        PhyloGUI pt = new PhyloGUI("sequences");
         pt.run();
     }
 

@@ -51,7 +51,7 @@ class EditDistanceTest {
         List<Species> testList = sp.parseFolder(TEST_FOLDER);
         EditDistance ed = new EditDistance(testList);
         int[][] matrix = ed.editDistMatrix();
-        System.out.println(matrix[0][2]);
+        assertEquals(matrix[0][2], matrix[2][0]);
 
         long endTime = System.currentTimeMillis();
         // print out the execution time of this full set test
