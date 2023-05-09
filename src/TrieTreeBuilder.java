@@ -1,25 +1,33 @@
 import java.util.List;
 
+/**
+ * Implements a TrieTreeBuilder for constructing a phylogenetic tree
+ * from a list of DNA sequences.
+ */
 public class TrieTreeBuilder implements ITreeBuilder {
 
     private List<Species> specList;
     private Node mainRoot;
     private TrieNode root;
 
+    /**
+     * Constructs an empty tree builder
+     */
     public TrieTreeBuilder() {}
 
     /**
-     * If species list has already been generated, construct TrieTreeBuilder
-     * without having to call setUp.
-     * @param specList
+     * Constructs a TrieTreeBuilder with a pre-generated species list.
+     *
+     * @param specList the list of species objects
      */
     public TrieTreeBuilder(List<Species> specList) {
         this.specList = specList;
     }
 
     /**
-     * Sets up necessary components for tree conversion.
-     * @param folderPath
+     * Sets up necessary components for tree conversion using a given folder path.
+     *
+     * @param folderPath the path to the folder containing DNA sequence files
      */
     @Override
     public void setUp(String folderPath) {
@@ -28,6 +36,14 @@ public class TrieTreeBuilder implements ITreeBuilder {
         specList = sp.parseFolder(folderPath);
     }
 
+    /**
+     * Recursively builds a binary tree from the given list of terms.
+     *
+     * @param terms the list of terms for building the tree
+     * @param start the start index of the list for the current subtree
+     * @param end the end index of the list for the current subtree
+     * @return the root node of the binary tree
+     */
     private Node buildBinaryTreeFromTerms(List<Term> terms, int start, int end) {
         NameMapper nm = new NameMapper();
         if (start > end) {
@@ -45,6 +61,12 @@ public class TrieTreeBuilder implements ITreeBuilder {
         return node;
     }
 
+    /**
+     * Adds a word and its corresponding species to the trie tree.
+     *
+     * @param word the word to be added
+     * @param spec the species object associated with the word
+     */
     public void addWord(String word, Species spec) {
         TrieNode node = root;
         word = word.toLowerCase();
@@ -75,7 +97,8 @@ public class TrieTreeBuilder implements ITreeBuilder {
 
     /**
      * Converts data parsed from DNA sequences to a phylogenetic tree.
-     * @return root node of tree
+     *
+     * @return the root node of the phylogenetic tree
      */
     @Override
     public Node buildTree() {
@@ -91,10 +114,20 @@ public class TrieTreeBuilder implements ITreeBuilder {
         return this.mainRoot;
     }
 
+    /**
+     * Gets the root node of the binary tree representation.
+     *
+     * @return the root node of the binary tree
+     */
     public Node getNodeRoot() {
         return this.mainRoot;
     }
 
+    /**
+     * Gets the root node of the trie tree representation.
+     *
+     * @return the root node of the trie tree
+     */
     public TrieNode getTrieRoot() {
         return this.root;
     }
