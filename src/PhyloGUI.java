@@ -25,6 +25,7 @@ public class PhyloGUI implements ActionListener {
     private JButton buttonTrie;
     private JButton buttonDNA;
     private JButton buttonSpecies;
+    private String queryText;
 
     PhyloGUI(String folderPath) {
         FOLDER_PATH = folderPath;
@@ -163,10 +164,16 @@ public class PhyloGUI implements ActionListener {
             // query by DNA Sequence
             System.out.println("dna");
             showQueryPopup("Query by DNA Sequence");
+            List<String> query = this.phyloTree.nearestBySequence(this.queryText, this.specList);
+            this.phyloTree.highlight(query);
         } else if (e.getSource() == this.buttonSpecies) {
             // query by species name
             System.out.println("species");
             showQueryPopup("Query by Species Name (Scientific Name)");
+            System.out.println(queryText);
+            List<String> query = this.phyloTree.nearestBySpeciesName(
+                    this.queryText, this.specList, this.editDistanceMatrix);
+            this.phyloTree.highlight(query);
         }
     }
 
@@ -186,9 +193,7 @@ public class PhyloGUI implements ActionListener {
         // Create a submit button
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(e -> {
-            String queryText = textArea.getText();
-            // Process the query here
-            System.out.println("Query text: " + queryText);
+            this.queryText = textArea.getText();
             queryDialog.dispose();
         });
         queryDialog.add(submitButton, BorderLayout.SOUTH);
@@ -210,12 +215,15 @@ public class PhyloGUI implements ActionListener {
         PhyloTree pt = new PhyloTree(new Node(""));
 
         this.phyloTree = pt;
-        this.graphViewer = new SwingViewer(pt.getGraphStream(), SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+        this.graphViewer = new SwingViewer(
+                pt.getGraphStream(),
+                SwingViewer.ThreadingModel.GRAPH_IN_GUI_THREAD
+        );
         javax.swing.SwingUtilities.invokeLater(this::createAndShowGUI);
     }
 
     public static void main(String[] args) {
-        PhyloGUI pt = new PhyloGUI("test/basic");
+        PhyloGUI pt = new PhyloGUI("sequences");
         pt.run();
     }
 

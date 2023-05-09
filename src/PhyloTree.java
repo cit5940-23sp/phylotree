@@ -36,6 +36,20 @@ public class PhyloTree {
     }
 
 
+    public void highlight(List<String> query) {
+        for (String nodeId : query) {
+            org.graphstream.graph.Node node = graph_stream.getNode(nodeId);
+            if (node != null) {
+                node.setAttribute("ui.style", "text-mode: normal;" +
+                        "text-background-mode: plain;" +
+                        "text-alignment: under;" +
+                        "text-size: 20;" +
+                        "text-color: red;");
+            }
+        }
+    }
+
+
     /**
      * Find top 5 nearest neighbours of given species (query by common name)
      *
