@@ -24,22 +24,11 @@ public class TrieNode {
         references = new TrieNode[LETTER_COUNT];
     }
 
-    /**
-     * Initialize a Node with the given query string and weight.
-     * @throws IllegalArgumentException if query is null or if weight is negative.
-     */
-    public TrieNode(String query, Species spec) throws IllegalArgumentException {
-        term = new Term(query, spec);
-        words = 0;
-        prefixes = 0;
-        references = new TrieNode[LETTER_COUNT];
-    }
-
     public List<Term> traversal() {
         return traversalIterative(this);
     }
 
-    List<Term> traversalIterative(TrieNode itr) {
+    private List<Term> traversalIterative(TrieNode itr) {
         Stack<TrieNode> stack = new Stack<>();
         List<Term> terms = new ArrayList<>();
 

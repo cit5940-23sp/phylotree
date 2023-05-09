@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * This is a class that acts as a wrapper around the Phylogenetic Tree as a `Node`.
- * It will hold both the actual tree (represented as a `Node` object) as well as
- * the graphical representation of the tree (represented as a `Graph` graph stream
- * object.
+ * Represents a phylogenetic tree with methods to find nearest neighbors
+ * of given species by species name or DNA sequence, and to visualize
+ * the tree using GraphStream library.
  */
 public class PhyloTree {
     private Node root;
@@ -26,8 +25,8 @@ public class PhyloTree {
     private NameMapper nameMapper;
 
     /**
-     * PhyloTree from Node/Edge tree
-     * @param node
+     * Constructs a PhyloTree object from a given Node.
+     * @param node the root node of the phylogenetic tree
      */
     PhyloTree(Node node) {
         this.root = node;
@@ -36,6 +35,10 @@ public class PhyloTree {
     }
 
 
+    /**
+     * Highlights the specified nodes in the graph.
+     * @param query
+     */
     public void highlight(List<String> query) {
         for (String nodeId : query) {
             org.graphstream.graph.Node node = graph_stream.getNode(nodeId);
@@ -51,8 +54,7 @@ public class PhyloTree {
 
 
     /**
-     * Find top 5 nearest neighbours of given species (query by common name)
-     *
+     * Finds the top 5 nearest neighbors of a given species by species name.
      * @param scientificName
      * @param speciesList
      * @param editDistance
@@ -97,8 +99,7 @@ public class PhyloTree {
 
 
     /**
-     * Find top 5 nearest sequences of given species (query by the DNA sequence)
-     *
+     * Finds the top 5 nearest neighbors of a given species by DNA sequence.
      * @param sequence
      * @param speciesList
      */
@@ -143,6 +144,11 @@ public class PhyloTree {
         return node.getLeftChild() == null && node.getRightChild() == null;
     }
 
+    /**
+     * Builds the GraphStream graph representation of the
+     * phylogenetic tree in an in-order traversal.
+     * @param node
+     */
     private void buildGraphStreamInOrder(Node node)
     {
         if (node == null)
@@ -184,6 +190,10 @@ public class PhyloTree {
         }
     }
 
+    /**
+     * Constructs the GraphStream graph representation of
+     * the phylogenetic tree.
+     */
     public void buildGraphStream() {
         graph_stream.clear();
         this.count = 0;
@@ -192,10 +202,6 @@ public class PhyloTree {
 
     public void setRoot(Node node) {
         this.root = node;
-    }
-
-    public Node getRoot() {
-        return this.root;
     }
 
     public Graph getGraphStream() {
